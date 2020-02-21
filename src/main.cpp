@@ -12,7 +12,8 @@ struct BOOK
     string publisher;
     int year_published;
     int quantity;
-    int location;
+    int rack;
+    int level;
     double price;
     char genre;
 };

@@ -4,7 +4,21 @@
 
 using namespace std;
 
-int main() {
+struct BOOK
+{
+    string isbn;
+    string author;
+    string title;
+    string publisher;
+    int year_published;
+    int quantity;
+    int location;
+    double price;
+    char genre;
+};
+
+int main()
+{
 
     cout << "Hello Easy C++ project!" << endl;
 

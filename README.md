@@ -4,8 +4,8 @@ Assignment as required by Programming & Problem Solving Course
 
 ## Prerequisites
 
-- MSVC 2019
-- VS Code (Highly recommended)
+- MSVC 2019, or any C++17 supporting compilers
+- [Nana GUI](https://github.com/cnjinhao/nana) (Release Version) - include as "nana.lib" in lib folder
 
 ## Description
 
@@ -27,3 +27,5 @@ Naturally, when the issue of a database environment comes up, one would be inter
 - Tan Kai Fung
 
 All of the included codes, files and documentation (except those published by UTAR) are licensed under the GNU GPL v3 License.
+
+NanaGUI is licensed under the Boost Software License.

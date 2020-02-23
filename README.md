@@ -5,6 +5,7 @@ Assignment as required by Programming & Problem Solving Course
 ## Prerequisites
 
 - MSVC 2019, or any C++17 supporting compilers
+  - MFC and ATL libraries may be needed
 - [Nana GUI](https://github.com/cnjinhao/nana) (Release Version) - include as "nana.lib" in lib folder
 
 ## Description

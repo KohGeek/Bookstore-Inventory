@@ -1,8 +1,6 @@
 #include <iostream>
 #include <iomanip>
 #include <conio.h>
-#include <windows.h>
-#include "GUI.hpp"
 
 using namespace std;
 
@@ -22,8 +20,6 @@ struct BOOK
 
 int main()
 {
-    GUI();
-
     cout << "Hello Easy C++ project!" << endl;
 
     cout << "Press any key to continue...";

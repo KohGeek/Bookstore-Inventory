@@ -36,5 +36,5 @@
 
 # Folder
 /bin/*
-# /include/nana
+/include/nana
 /include/csv

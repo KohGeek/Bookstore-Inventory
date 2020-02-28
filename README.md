@@ -11,9 +11,7 @@ Assignment as required by Programming & Problem Solving Course
 
 ### More information
 
-The included build files (build-noconsole.bat and build.bat) links the Nana GUI library as `lib/nana.lib`.
-
-The `include` folder is used by the developer to include all the necessary external libraries.
+The included `.bat` files links the Nana GUI library as `lib/nana.lib`, and also includes a `include` subfolder for all the header files.
 
 ## Description
 

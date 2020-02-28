@@ -6,7 +6,14 @@ Assignment as required by Programming & Problem Solving Course
 
 - MSVC 2019, or any C++17 supporting compilers
   - MFC and ATL libraries may be needed
-- [Nana GUI](https://github.com/cnjinhao/nana) (Release Version) - include as "nana.lib" in lib folder
+- [Nana GUI](https://github.com/cnjinhao/nana)
+- [csv](https://github.com/p-ranav/csv)
+
+### More information
+
+The included build files (build-noconsole.bat and build.bat) links the Nana GUI library as `lib/nana.lib`.
+
+The `include` folder is used by the developer to include all the necessary external libraries.
 
 ## Description
 
@@ -27,6 +34,8 @@ Naturally, when the issue of a database environment comes up, one would be inter
 - Johnny Chuan
 - Tan Kai Fung
 
-All of the included codes, files and documentation (except those published by UTAR) are licensed under the GNU GPL v3 License.
+[NanaGUI](https://github.com/cnjinhao/nana) is licensed under the Boost Software License.
 
-NanaGUI is licensed under the Boost Software License.
+[csv](https://github.com/p-ranav/csv) by p-ranav is licensed under the MIT License.
+
+All of the included codes, files and documentation (except those published by UTAR) are licensed under the GNU GPL v3 License.

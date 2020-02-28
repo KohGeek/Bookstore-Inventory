@@ -2,6 +2,8 @@
 #include <iomanip>
 #include <conio.h>
 
+#include <fileio.hpp>
+
 using namespace std;
 
 struct BOOK

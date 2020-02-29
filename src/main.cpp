@@ -2,26 +2,16 @@
 #include <iomanip>
 #include <conio.h>
 
-#include <fileio.hpp>
+#include "fileio.hpp"
 
 using namespace std;
 
-struct BOOK
-{
-    string isbn;
-    string author;
-    string title;
-    string publisher;
-    int year_published;
-    int quantity;
-    int rack;
-    int level;
-    double price;
-    char genre;
-};
+BOOK inventory[1000];
 
 int main()
 {
+    reader();
+
     cout << "Hello Easy C++ project!" << endl;
 
     cout << "Press any key to continue...";

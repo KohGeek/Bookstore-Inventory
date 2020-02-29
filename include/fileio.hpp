@@ -2,8 +2,12 @@
 #define FILEIO_HPP
 
 #include "csv/reader.hpp"
+#include "csv/writer.hpp"
 #include "nana/gui.hpp"
 #include "nana/gui/filebox.hpp"
+#include "nana/gui/widgets/label.hpp"
+#include "nana/gui/widgets/textbox.hpp"
+#include "nana/gui/widgets/button.hpp"
 
 struct BOOK
 {
@@ -21,6 +25,7 @@ struct BOOK
 
 extern BOOK inventory[1000];
 
-void reader(void);
+int reader(void);
+int writer(void);
 
 #endif

@@ -12,6 +12,8 @@ int main()
 {
     reader();
 
+    writer();
+
     cout << "Hello Easy C++ project!" << endl;
 
     cout << "Press any key to continue...";

@@ -11,6 +11,9 @@
 #include <nana/gui/widgets/label.hpp>
 #include <nana/gui/place.hpp>
 #include <nana/gui/widgets/textbox.hpp>
+#include <nana/gui/widgets/tabbar.hpp>
+#include <nana/gui/widgets/group.hpp>
+
 #include <forward_list>
 #include <map>
 #include <cassert>
@@ -27,29 +30,55 @@ using namespace nana;
 
 
 
+
 int main()
 {
        
     
-    form fm;
-    fm.caption(("Test"));
-    textbox t1 {fm},
-            t2 {fm};
-    button bt1(fm,"Hello");
-      button bt2(fm,"Hello");
+   form fm;
+   fm.caption("Nana.exe");
+   place plc(fm);
+   bool really_quick{false};
+   label hello{fm, "Hello World"};
+   button btn {fm, "Quit"};
+   btn.tooltip("I will ask first");
+   group act(fm,"Actions");
 
-      t1.tip_string("Username:").multi_lines(false);
-      t2.tip_string("Password:").multi_lines(false).mask('*');
-      
-    place plc(fm);
-    plc.div("   <> <weight=80% vertical<><weight=70% vertical <vertical gap =10 textboxes arrange = [25,25] ><weight=25% gap = 5 buttons>        ><>     > <>");
-    plc.field("textboxes") << t1 << t2;
-    plc.field("buttons") << bt1 << bt2;
+   act.add_option("Quick quickly")
+   .events().click([&] () {
+       really_quick = true;
+       });
 
-    plc.collocate();
+        act.add_option("Ask first")
+   .events().click([&] () {
+       really_quick = false;
+        });
+
+        btn.events().click([&]() {
+            if (!really_quick)
+            {
+                msgbox m(fm, "Our demo", msgbox::yes_no);
+                m.icon(m.icon_question);
+                m <<"Are you sure you want to quit";
+                auto response = m();
+                if (response != m.pick_yes)return;
+
+                
+            
+        }
+        API::exit();
+        });
+   
     
+   
+   
+    plc.div("vertical <label margin=10>|70% <actions>");
+    plc["label"] << hello << btn;
+    plc["actions"] << act;
+    plc.collocate();
     fm.show();
     exec();
+   
     
 
 }

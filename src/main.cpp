@@ -13,6 +13,8 @@
 #include <nana/gui/widgets/menubar.hpp>
 #include <nana/gui/layout_utility.hpp>
 
+#include <cmath>
+#include <bitset>
 
 
 
@@ -31,36 +33,30 @@
 using namespace nana;
 
 
+/*
 
-
-/*int main()
+int main()
 {
        
     
-   nana::appearance fmapper;
-   fmapper.maximize = true;
-   form fm(rectangle(0,0,1920,1080), fmapper);
+    nana::appearance fmapper;
+    fmapper.maximize = true;
+    form fm(rectangle(0,0,1920,1080), fmapper);
  
    
 
    
-   fm.caption("Nana.exe");
-   button bt0{fm,"Add"};
+    fm.caption("Nana.exe");
+    button bt0{fm,"Add"};
     button bt1{fm,"Delete"};
-     button bt2{fm, "Edit"};
-     textbox search{fm};
-     label lb {fm};
-     lb.format(true);
-     lb.caption("<bold size = 30 font=\"Consolas\" >Book Managment</>");
-     lb.bgcolor(colors::azure);
-   lb.text_align(align::center, align_v::center);
+    button bt2{fm, "Edit"};
+    textbox search{fm};
+    label lb {fm};
+    lb.format(true);
 
-        
-     
-
-
-    
-     
+    lb.caption("<bold size = 30 font=\"Consolas\" >Book Managment</>");
+    lb.bgcolor(colors::azure);
+    lb.text_align(align::center, align_v::center);
     
     
     fm.show();
@@ -72,10 +68,6 @@ using namespace nana;
     
     plc.div("vertical<weight = 10%  vertical<text>   ><>");
     plc.field("text") << lb;
-   
-    
-    
-    
     
     
     plc.collocate();
@@ -89,18 +81,41 @@ using namespace nana;
 }
 */
 
-int main(){
-    auto s = screen();
-    auto pa = s.get_primary().workarea();
-    form fm;
 
-    fm.move(pa.x,pa.y);
-    fm.outline_size({pa.width /2 , pa.height / 2});
+int main(){
+    
+    nana::appearance fmapper;
+    fmapper.maximize = false;
+    fmapper.sizable = false;
+    form fm(rectangle(100,100,800,600), fmapper);
+ 
     fm.caption("Book Inventory");
+    button add_but{fm,"Add"};
+    button delete_but{fm,"Delete"};
+    button edit_but{fm, "Edit"};
+    button search_but{fm, "Search"};
+    button adv_search_but{fm, "Advanced"};
+    textbox search_box{fm};
+    label lb {fm};
+    lb.format(true);
+
+    lb.caption("<bold size = 30 font=\"Consolas\" >Book Managment</>");
+    lb.bgcolor(colors::azure);
+    lb.text_align(align::center, align_v::center);
+    place plc(fm);
+    plc.div("vertical<weight = 10%  vertical<header>   >      <weight = 20% <weight = 70%> <vertical <<weight = 70% <search_input  margin = [10,10,10,10] >  > <    <btn_search margin = [10,10,10,10]>  > >     < <weight = 70%> <    < btn_adv margin = [10,10,10,10] >     > > >  >            <>");
+    plc.field("header") << lb;
+    plc.field("search_input") << search_box;
+    plc.field("btn_search") << search_but;
+    plc.field("btn_adv") << adv_search_but;
+    
+    
+    plc.collocate();
+    
 
     fm.show();
     exec();
-  
 
+    return 0;
 
 }

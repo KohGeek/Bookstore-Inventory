@@ -32,15 +32,34 @@ using namespace nana;
 
 
 //func prototype
-void exit_func(const arg_click& ei )
+void popup(const arg_click& pop)
 {
-    msgbox m(ei.window_handle, "msg.exe", msgbox::yes_no);
-    m.icon(m.icon_question);
-    m << "Want to Exit onii-chan?!!";  
-    m(); 
-    
-}
+ //size of screen
+    nana::appearance popmapper;
+    popmapper.maximize = false;
+    popmapper.sizable = false;
+    form popup1(rectangle(100,100,600,400), popmapper);
+    popup1.caption("Add Books");
+  
+    place plc1(popup1);
+    label lb1 {popup1};
+    lb1.format(true);
+    lb1.caption("<bold size = 30 font=\"Consolas\" >Book Managment</>");
+    lb1.bgcolor(colors::azure);
+    lb1.text_align(align::center, align_v::center);
+    plc1.div("<><a>");
+    plc1.field("a") << lb1;
+    plc1.collocate();
+    popup1.show();
+   
 
+    
+    exec();
+    
+
+
+    //fixed (not responsive)   
+}
 
 
 
@@ -64,13 +83,20 @@ int main(){
 
    //button declare
     button add_but{fm,"Add"};
+    add_but.events().click(popup);
     button delete_but{fm,"Delete"};
     button edit_but{fm, "Edit"};
     button search_but{fm, "Search"};
     button adv_search_but{fm, "Advanced"};
     button exit_but{fm, "Quit"};
-    //event handling (quit)
-    exit_but.events().click(exit_func);
+    
+  
+    
+    
+   
+    
+    
+
 
     //end button
 
@@ -82,16 +108,26 @@ int main(){
   
     //Make a table box
     listbox table_box{fm, true};
-    table_box.append_header("ISBN Code", 80);
     
-    table_box.append_header("Author", 80);
    
+    
+    table_box.append_header("ISBN Code", 130);
+    table_box.append_header("Author", 80);
     table_box.append_header("Title", 80);
     table_box.append_header("Publisher", 80);
     table_box.append_header("Year Publish", 80);
     table_box.append_header("Quantity", 80);
     table_box.append_header("Price", 80);
-    table_box.append_header("Location", 80);    
+    table_box.append_header("Location", 80); 
+    auto cat = table_box.at(0);
+    table_box.auto_draw(false);
+    cat.append({"978-3-16-148410-0", "J.K. Rowling", "Harry Potter", "	Bloomsbury Publishing ", "1999", "5", "RM30", "London"});
+    cat.append({"977-3-16-148410-0", "A.B. Rowling", "Harry Potter", "	Bloomsbury Publishing ", "1999", "5", "RM30", "London"});
+    cat.append({"976-3-16-148410-0", "C.K. Rowling", "Harry Potter", "	Bloomsbury Publishing ", "1999", "5", "RM30", "London"});
+    table_box.auto_draw(true);
+    table_box.checkable(true);
+    table_box.checked() ;
+       
     //end of tablebox
 
     //header name
@@ -130,4 +166,14 @@ int main(){
     return 0;
 
 }
+
+
+    
+
+    
+    
+      
+        
+ 
+
 

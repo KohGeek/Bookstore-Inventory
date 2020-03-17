@@ -2,25 +2,28 @@
     "version": "0.2.0",
     "configurations": [
     {
-        "type": "node",
+        "name": "C++ Debug (Windows)",
+        "type": "cppvsdbg",
         "request": "launch",
-        "name": "Launch Program",
-        "program": "${workspaceFolder}/app.js",
-        "skipFiles": [
-            "<node_internals>/**"
-        ]
+        "program": "${workspaceFolder}/bin/main.exe",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": true,
+
     },
-        {
-            "name": "C++ Debug (Windows)",
-            "type": "cppvsdbg",
-            "request": "launch",
-            "program": "${workspaceFolder}/bin/main.exe",
-            "preLaunchTask": "Build C++ project",
-            "args": [],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": true,
-        }
+    {
+        "name": "C++ Debug And Build (Windows)",
+        "type": "cppvsdbg",
+        "request": "launch",
+        "program": "${workspaceFolder}/bin/main.exe",
+        "preLaunchTask": "Build C++ project",
+        "args": [],
+        "stopAtEntry": false,
+        "cwd": "${workspaceFolder}",
+        "environment": [],
+        "externalConsole": true,
+    }
     ]
 }

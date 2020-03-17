@@ -36,3 +36,6 @@
 
 # Folder
 /bin/*
+/include/nana
+/include/csv
+/include/tabulate

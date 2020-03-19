@@ -9,6 +9,9 @@
 #include <stdio.h>
 
 #include "tabulate/table.hpp"
+#include "fileio.hpp"
+
+BOOK inventory[1000];
 
 using namespace tabulate;
 

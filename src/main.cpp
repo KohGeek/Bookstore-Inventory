@@ -18,76 +18,76 @@ using namespace tabulate;
 int main()
 {
 
-     //declaring variables
-     int option, search_no;
+     // //declaring variables
+     // int option, search_no;
 
-     //declaring strings
-     std::string isbn_code;
-     std::string author_name;
-     std::string book_title;
-     std::string publisher_name;
-     std::string year_of_publish;
-     std::string price_of_book;
-     std::string quantity_of_books;
-     std::string location_of_books1;
-     std::string location_of_books2;
+     // //declaring strings
+     // std::string isbn_code;
+     // std::string author_name;
+     // std::string book_title;
+     // std::string publisher_name;
+     // std::string year_of_publish;
+     // std::string price_of_book;
+     // std::string quantity_of_books;
+     // std::string location_of_books1;
+     // std::string location_of_books2;
 
-     //decalring arrays
-     std::string isbn[20];
-     std::string author[20];
-     std::string title[20];
-     std::string publisher[20];
-     int year_publish[20];
-     double price[20];
-     int quantity[20];
-     std::string location1[20];
-     std::string location2[20];
+     // //decalring arrays
+     // std::string isbn[20];
+     // std::string author[20];
+     // std::string title[20];
+     // std::string publisher[20];
+     // int year_publish[20];
+     // double price[20];
+     // int quantity[20];
+     // std::string location1[20];
+     // std::string location2[20];
 
-     int i = 0;
+     // int i = 0;
 
-     std::ifstream inputfile("doc\\inventory.txt");
+     // std::ifstream inputfile("doc\\inventory.txt");
 
-     while (!inputfile){
-          std::cout << "fucking file not exist" << std::endl;
-     }
+     // while (!inputfile){
+     //      std::cout << "fucking file not exist" << std::endl;
+     // }
 
-     while (!inputfile.eof())
-     {
-          getline(inputfile, isbn_code, ',');
-          isbn[i] = isbn_code;
+     // while (!inputfile.eof())
+     // {
+     //      getline(inputfile, isbn_code, ',');
+     //      isbn[i] = isbn_code;
 
-          getline(inputfile, author_name, ',');
-          author[i] = author_name;
+     //      getline(inputfile, author_name, ',');
+     //      author[i] = author_name;
 
-          getline(inputfile, book_title, ',');
-          title[i] = book_title;
+     //      getline(inputfile, book_title, ',');
+     //      title[i] = book_title;
 
-          getline(inputfile, publisher_name, ',');
-          publisher[i] = publisher_name;
+     //      getline(inputfile, publisher_name, ',');
+     //      publisher[i] = publisher_name;
 
-          getline(inputfile, year_of_publish, ',');
-          year_publish[i] = std::stoi(year_of_publish);
+     //      getline(inputfile, year_of_publish, ',');
+     //      year_publish[i] = std::stoi(year_of_publish);
 
-          getline(inputfile, price_of_book, ',');
-          price[i] = std::stod(price_of_book);
+     //      getline(inputfile, price_of_book, ',');
+     //      price[i] = std::stod(price_of_book);
 
-          getline(inputfile, quantity_of_books, ',');
-          quantity[i] = std::stoi(quantity_of_books);
+     //      getline(inputfile, quantity_of_books, ',');
+     //      quantity[i] = std::stoi(quantity_of_books);
 
-          getline(inputfile, location_of_books1, ',');
-          location1[i] = location_of_books1;
+     //      getline(inputfile, location_of_books1, ',');
+     //      location1[i] = location_of_books1;
 
-          getline(inputfile, location_of_books2, '\n');
-          location2[i] = location_of_books2;
+     //      getline(inputfile, location_of_books2, '\n');
+     //      location2[i] = location_of_books2;
 
-          i += 1;
-     }
+     //      i += 1;
+     // }
 
-     std::cout << i << std::endl;
-     for (int j = 0; j < (i - 1); j++)
-     {
-          std::cout << isbn[j] << '\t' << author[j] << '\t' << title[j] << '\t' << publisher[j] << '\t' << year_publish[j] << '\t' << price[j] << '\t' << quantity[j] << '\t' << location1[j] << '\t' << location2[j] << std::endl;
-     }
+     // std::cout << i << std::endl;
+     // for (int j = 0; j < (i - 1); j++)
+     // {
+     //      std::cout << isbn[j] << '\t' << author[j] << '\t' << title[j] << '\t' << publisher[j] << '\t' << year_publish[j] << '\t' << price[j] << '\t' << quantity[j] << '\t' << location1[j] << '\t' << location2[j] << std::endl;
+     // }
 
      while (true)
      {

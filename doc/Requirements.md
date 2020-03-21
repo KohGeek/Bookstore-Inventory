@@ -16,16 +16,16 @@
 
 ## Mandatory
 
-- [ ] Text file parser
-- [ ] Array handling
+- [x] Text file parser
+- [x] Array handling
 - [ ] Searching tools
 
 ## Optional
 
-- [ ] JSON file parser/intermediatry
-- [ ] Genre type?
+- [ ] ~~JSON file parser/intermediatry~~
+- [x] Genre type?
 - [ ] Building an indexing function?
-- [ ] Handle picky situations (commas, and inverted commas - maybe save as HTML-safe type)
+- [ ] ~~Handle picky situations (commas, and inverted commas - maybe save as HTML-safe type)~~
 - [ ] Searching tools++
   - [ ] Partial searches
   - [ ] Return all matching

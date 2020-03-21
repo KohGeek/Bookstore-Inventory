@@ -9,10 +9,6 @@ Assignment as required by Programming & Problem Solving Course
 - [tabulate](https://github.com/p-ranav/tabulate)
 - [csv](https://github.com/p-ranav/csv)
 
-### More information
-
-The included `.bat` files links the Nana GUI library as `lib/nana.lib`, and also includes a `include` subfolder for all the header files.
-
 ## Description
 
 The assignment required the making of C++ program with the following functions:

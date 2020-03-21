@@ -94,6 +94,7 @@ int writer(void)
     ofndialog.hwndOwner = NULL;
     ofndialog.lpstrFilter = "Text Files (*.txt;*.csv)\0*.txt;*.csv\0Any File (*.*)\0*.*\0\0";
     ofndialog.lpstrFile = filename;
+    ofndialog.lpstrTitle = "Save As"
     ofndialog.lpstrFileTitle = "inventory.csv";
     ofndialog.lpstrInitialDir = NULL;
     ofndialog.nMaxFile = MAX_PATH;

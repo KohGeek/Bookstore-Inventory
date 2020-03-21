@@ -1,44 +1,74 @@
 #include <iostream>
 #include <vector>
+#include <windows.h>
 
+#include "csv/reader.hpp"
+#include "csv/writer.hpp"
 #include "fileio.hpp"
 
-int reader(void){
+int reader(void)
+{
 
-    nana::filebox OpenFile{nullptr,true};
+    char filename[MAX_PATH];
+    BOOK temp;
+
     csv::Reader csvparse;
-
-    OpenFile.allow_multi_select(false);
-    OpenFile.add_filter("CSV Files (*.csv; *.txt)","*.csv;*.txt");
-    OpenFile.add_filter("All Files (*.*)","*.*");
 
     csvparse.configure_dialect("assignment")
         .header(false)
         .skip_empty_rows(true)
-        .column_names("ISBN","Author","Title","Publisher","YearPublished","Price","Quantity","Rack","Level","Genre");
+        .column_names("ISBN", "Author", "Title", "Publisher", "YearPublished", "Price", "Quantity", "Rack", "Level", "Genre");
 
-    auto path = OpenFile.show();
+    OPENFILENAME ofndialog;
+    ZeroMemory(&filename, sizeof(filename));
+    ZeroMemory(&ofndialog, sizeof(ofndialog));
+    ofndialog.lStructSize = sizeof(ofndialog);
+    ofndialog.hwndOwner = NULL;
+    ofndialog.lpstrFilter = "Text Files (*.txt;*.csv)\0*.txt;*.csv\0Any File (*.*)\0*.*\0\0";
+    ofndialog.lpstrFile = filename;
+    ofndialog.lpstrFileTitle = "inventory.csv";
+    ofndialog.lpstrInitialDir = NULL;
+    ofndialog.nMaxFile = MAX_PATH;
+    ofndialog.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
-    if(path.empty()){
+    if (!GetOpenFileNameA(&ofndialog))
+    {
+        switch (CommDlgExtendedError())
+        {
+        case CDERR_DIALOGFAILURE:
+            std::cout << "CDERR_DIALOGFAILURE\n";
+            break;
+        case CDERR_INITIALIZATION:
+            std::cout << "CDERR_INITIALIZATION\n";
+            break;
+        case FNERR_INVALIDFILENAME:
+            std::cout << "FNERR_INVALIDFILENAME\n";
+            break;
+        default:
+            std::cout << "You cancelled.\n";
+        }
+
         return 1;
-    }else{
-        std::string p = path[0].string();
-        csvparse.read(p);
     }
 
-    for(int i = 0; csvparse.busy();){
-        if(csvparse.ready()){
+    csvparse.read(filename);
+
+    for (int i = 0; csvparse.busy();)
+    {
+        if (csvparse.ready())
+        {
             auto row = csvparse.next_row();
-            inventory[i].isbn = row["ISBN"];
-            inventory[i].author = row["Author"];
-            inventory[i].title = row["Title"];
-            inventory[i].publisher = row["Publisher"];
-            inventory[i].year_published = std::stoi(row["YearPublished"]);
-            inventory[i].price = std::stod(row["Price"]);
-            inventory[i].quantity = std::stoi(row["Quantity"]);
-            inventory[i].rack = std::stoi(row["Rack"]);
-            inventory[i].level = std::stoi(row["Level"]);
-            inventory[i].genre = row["Genre"];
+            temp.isbn = row["ISBN"];
+            temp.author = row["Author"];
+            temp.title = row["Title"];
+            temp.publisher = row["Publisher"];
+            temp.year_published = std::stoi(row["YearPublished"]);
+            temp.price = std::stod(row["Price"]);
+            temp.quantity = std::stoi(row["Quantity"]);
+            temp.rack = std::stoi(row["Rack"]);
+            temp.level = std::stoi(row["Level"]);
+            temp.genre = row["Genre"];
+            inventory.push_back(temp);
             i++;
         }
     }
@@ -46,52 +76,61 @@ int reader(void){
     return 0;
 }
 
-int writer(void){
-    
-    /** to be further developed
-    nana::form NamePrompt;
-    nana::folderbox SaveFile{nullptr,};
-    int i = 0;
-    std::string p;
+int writer(void)
+{
 
-    SaveFile.allow_multi_select(false);
-    nana::label namelb{NamePrompt, nana::rectangle {20,10,300,30}};
-    nana::textbox nametxt{NamePrompt, nana::rectangle {20,50,300,30}, true};
-    nana::button namebut{NamePrompt, nana::rectangle {135,90,60,20}};
+    char filename[MAX_PATH];
 
-    namelb.caption("Please key in the file name you want to save:");
-    namebut.caption("Confirm");
-
-    auto path = SaveFile.show();
-
-    if(path.empty()){
-        return 0;
-    }else{
-        p = path[0].string();
-        NamePrompt.show();
-        nana::exec();
-    }
-    **/
-
-    csv::Writer csvWriter("inventory.csv");
+    csv::Writer csvWriter(filename);
 
     csvWriter.configure_dialect()
         .delimiter(",")
-        .column_names("ISBN","Author","Title","Publisher","YearPublished","Price","Quantity","Rack","Level","Genre");
-    
-    for(int i = 0; inventory[i].isbn != ""; i++){
+        .column_names("ISBN", "Author", "Title", "Publisher", "YearPublished", "Price", "Quantity", "Rack", "Level", "Genre");
+
+    OPENFILENAME ofndialog;
+    ZeroMemory(&filename, sizeof(filename));
+    ZeroMemory(&ofndialog, sizeof(ofndialog));
+    ofndialog.lStructSize = sizeof(ofndialog);
+    ofndialog.hwndOwner = NULL;
+    ofndialog.lpstrFilter = "Text Files (*.txt;*.csv)\0*.txt;*.csv\0Any File (*.*)\0*.*\0\0";
+    ofndialog.lpstrFile = filename;
+    ofndialog.lpstrFileTitle = "inventory.csv";
+    ofndialog.lpstrInitialDir = NULL;
+    ofndialog.nMaxFile = MAX_PATH;
+    ofndialog.Flags = OFN_DONTADDTORECENT | OFN_CREATEPROMPT | OFN_OVERWRITEPROMPT;
+
+    if (!GetOpenFileNameA(&ofndialog))
+    {
+        switch (CommDlgExtendedError())
+        {
+        case CDERR_DIALOGFAILURE:
+            std::cout << "CDERR_DIALOGFAILURE\n";
+            break;
+        case CDERR_INITIALIZATION:
+            std::cout << "CDERR_INITIALIZATION\n";
+            break;
+        case FNERR_INVALIDFILENAME:
+            std::cout << "FNERR_INVALIDFILENAME\n";
+            break;
+        default:
+            std::cout << "You cancelled.\n";
+        }
+        return 1;
+    }
+
+    for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+    {
         csvWriter.write_row(
-            inventory[i].isbn,
-            inventory[i].author,
-            inventory[i].title,
-            inventory[i].publisher,
-            std::to_string(inventory[i].year_published),
-            std::to_string(inventory[i].price),
-            std::to_string(inventory[i].quantity),
-            std::to_string(inventory[i].rack),
-            std::to_string(inventory[i].level),
-            inventory[i].genre
-        );
+            (*i).isbn,
+            (*i).author,
+            (*i).title,
+            (*i).publisher,
+            std::to_string((*i).year_published),
+            std::to_string((*i).price),
+            std::to_string((*i).quantity),
+            std::to_string((*i).rack),
+            std::to_string((*i).level),
+            (*i).genre);
     }
 
     csvWriter.close();

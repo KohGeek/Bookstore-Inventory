@@ -146,14 +146,26 @@ void option_4()
     std::cout << "(Type in the relative number?)" << std::endl;
     std::cin >> search_no;
 
+    //user_input
+    std::string isbn_input;
+    std::string author_input;
+    std::string title_input;
+
+    //change in value
+    std::string isbn_change;
+    std::string author_change;
+    std::string title_change;
+    std::string publisher_change;
+    std::string year_change;
+    std::string price_change;
+    std::string quantity_change;
+    std::string rack_change;
+    std::string level_change;
+    std::string genre_change;
+
     //formula
     if (search_no == 1)
     {
-        std::string isbn_input;
-        std::string isbn_change;
-        std::string author_change;
-        std::string title_change;
-
         std::cout << "Pls enter relevant isbn code: ";
         std::cin >> isbn_input;
 
@@ -163,12 +175,102 @@ void option_4()
             isbn_change = (*i).isbn;
             author_change = (*i).author;
             title_change = (*i).title;
+            publisher_change = (*i).publisher;
+            year_change = std::to_string((*i).year_published);
+            price_change = std::to_string((*i).price);
+            quantity_change = std::to_string((*i).quantity);
+            rack_change = std::to_string((*i).rack);
+            level_change = std::to_string((*i).level);
+            genre_change = (*i).genre;
 
-            if (strstr(isbn_change.c_str(),isbn_input.c_str()))
+            if (strstr(isbn_change.c_str(), isbn_input.c_str()))
             {
                 std::cout << "ISBN : " << isbn_change << std::endl;
                 std::cout << "Author : " << author_change << std::endl;
                 std::cout << "Title : " << title_change << std::endl;
+                std::cout << "Publisher : " << publisher_change << std::endl;
+                std::cout << "Year Published : " << year_change << std::endl;
+                std::cout << "Price : " << price_change << std::endl;
+                std::cout << "Quantity : " << quantity_change << std::endl;
+                std::cout << "Rack : " << rack_change << std::endl;
+                std::cout << "Level : " << level_change << std::endl;
+                std::cout << "Genre : " << genre_change << std::endl;
+                break;
+            }
+        }
+    }
+
+    if (search_no == 2)
+    {
+        
+        std::cout << "Pls enter relevant author: ";
+        std::cin.ignore();
+        std::getline(std::cin, author_input);
+
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+
+            isbn_change = (*i).isbn;
+            author_change = (*i).author;
+            title_change = (*i).title;
+            publisher_change = (*i).publisher;
+            year_change = std::to_string((*i).year_published);
+            price_change = std::to_string((*i).price);
+            quantity_change = std::to_string((*i).quantity);
+            rack_change = std::to_string((*i).rack);
+            level_change = std::to_string((*i).level);
+            genre_change = (*i).genre;
+
+            
+            if (strstr(author_change.c_str(), author_input.c_str()))
+            {
+                std::cout << "ISBN : " << isbn_change << std::endl;
+                std::cout << "Author : " << author_change << std::endl;
+                std::cout << "Title : " << title_change << std::endl;
+                std::cout << "Publisher : " << publisher_change << std::endl;
+                std::cout << "Year Published : " << year_change << std::endl;
+                std::cout << "Price : " << price_change << std::endl;
+                std::cout << "Quantity : " << quantity_change << std::endl;
+                std::cout << "Rack : " << rack_change << std::endl;
+                std::cout << "Level : " << level_change << std::endl;
+                std::cout << "Genre : " << genre_change << std::endl;
+                break;
+            }
+        }
+    }
+
+    if (search_no == 3)
+    {
+        std::cout << "Pls enter relevant book title: ";
+        std::cin.ignore();
+        std::getline(std::cin, title_input);
+
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+
+            isbn_change = (*i).isbn;
+            author_change = (*i).author;
+            title_change = (*i).title;
+            publisher_change = (*i).publisher;
+            year_change = std::to_string((*i).year_published);
+            price_change = std::to_string((*i).price);
+            quantity_change = std::to_string((*i).quantity);
+            rack_change = std::to_string((*i).rack);
+            level_change = std::to_string((*i).level);
+            genre_change = (*i).genre;
+
+            if (strstr(title_change.c_str(), title_input.c_str()))
+            {
+                std::cout << "ISBN : " << isbn_change << std::endl;
+                std::cout << "Author : " << author_change << std::endl;
+                std::cout << "Title : " << title_change << std::endl;
+                std::cout << "Publisher : " << publisher_change << std::endl;
+                std::cout << "Year Published : " << year_change << std::endl;
+                std::cout << "Price : " << price_change << std::endl;
+                std::cout << "Quantity : " << quantity_change << std::endl;
+                std::cout << "Rack : " << rack_change << std::endl;
+                std::cout << "Level : " << level_change << std::endl;
+                std::cout << "Genre : " << genre_change << std::endl;
                 break;
             }
         }

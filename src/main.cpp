@@ -123,7 +123,7 @@ void option_3()
 }
 
 void option_4()
-{   
+{
     //declaring variables
     int search_no;
 
@@ -140,12 +140,12 @@ void option_4()
     //styling
     search[0].format().font_background_color(Color::magenta).font_style({FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
     std::cout << search << std::endl;
-   
-   //asking
+
+    //asking
     std::cout << "How you want to search?" << std::endl;
     std::cout << "(Type in the relative number?)" << std::endl;
     std::cin >> search_no;
-    
+
     //formula
     if (search_no == 1)
     {
@@ -156,7 +156,7 @@ void option_4()
 
         std::cout << "Pls enter relevant isbn code: ";
         std::cin >> isbn_input;
-        
+
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
 
@@ -164,19 +164,13 @@ void option_4()
             author_change = (*i).author;
             title_change = (*i).title;
 
-            if (isbn_change.find(isbn_input))
+            if (strstr(isbn_change.c_str(),isbn_input.c_str()))
             {
                 std::cout << "ISBN : " << isbn_change << std::endl;
                 std::cout << "Author : " << author_change << std::endl;
                 std::cout << "Title : " << title_change << std::endl;
                 break;
-                
             }
-            
-        
-        
         }
-
-    
     }
 }

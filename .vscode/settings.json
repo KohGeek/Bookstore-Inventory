@@ -69,7 +69,10 @@
         "mutex": "cpp",
         "ratio": "cpp",
         "thread": "cpp",
-        "xtree": "cpp"
+        "xtree": "cpp",
+        "deque": "cpp",
+        "stack": "cpp",
+        "unordered_set": "cpp"
     },
     "terminal.integrated.shell.windows": "cmd.exe"
 }

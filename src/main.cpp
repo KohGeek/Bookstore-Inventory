@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <vector>
 
+#include <string>
 #include <string.h>
 #include <stdio.h>
 
@@ -14,10 +15,16 @@ std::vector<BOOK> inventory;
 
 using namespace tabulate;
 
+//func prototype
+void option_1();
+void option_2();
+void option_3();
+void option_4();
+
 int main()
 {
 
-    int option, search_no;
+    int option;
 
     while (true)
     {
@@ -57,57 +64,25 @@ int main()
         //Add data
         if (option == 1)
         {
-            system("CLS");
-            std::cout << "Press any key to continue...";
-            getch();
-            system("CLS");
+            option_1();
         }
 
         //Delete Data
         else if (option == 2)
         {
-            system("CLS");
-            std::cout << "Press any key to continue...";
-            getch();
-            system("CLS");
+            option_2();
         }
 
         //Edit Data
         else if (option == 3)
         {
-            system("CLS");
-            std::cout << "Press any key to continue...";
-            getch();
-            system("CLS");
+            option_3();
         }
 
         //Search Data
         else if (option == 4)
         {
-            system("CLS");
-
-            //Search Table
-            Table search;
-            search.add_row({"Advanced Search"});
-            search.add_row({"1) ISBN"});
-            search.add_row({"2) Author"});
-            search.add_row({"3) Title"});
-            search.add_row({"4) Publisher"});
-            search.add_row({"5) Year Publish"});
-            search.add_row({"6) Quantity"});
-            search.add_row({"7) Price"});
-            search.add_row({"8) Location"});
-
-            search[0].format().font_background_color(Color::magenta).font_style({FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
-
-            std::cout << search << std::endl;
-            std::cout << "How you want to search?" << std::endl;
-            std::cout << "(Type in the relative number?)" << std::endl;
-            std::cin >> search_no;
-            //search table
-
-            getch();
-            system("CLS");
+            option_4();
         }
 
         //error checking (menu)
@@ -121,4 +96,87 @@ int main()
     }
 
     std::cout << "Click Pause";
+}
+
+void option_1()
+{
+    system("CLS");
+    std::cout << "Press any key to continue...";
+    getch();
+    system("CLS");
+}
+
+void option_2()
+{
+    system("CLS");
+    std::cout << "Press any key to continue...";
+    getch();
+    system("CLS");
+}
+
+void option_3()
+{
+    system("CLS");
+    std::cout << "Press any key to continue...";
+    getch();
+    system("CLS");
+}
+
+void option_4()
+{   
+    //declaring variables
+    int search_no;
+
+    //clear screen
+    system("CLS");
+
+    //Search Table
+    Table search;
+    search.add_row({"Advanced Search"});
+    search.add_row({"1) ISBN"});
+    search.add_row({"2) Author"});
+    search.add_row({"3) Title"});
+
+    //styling
+    search[0].format().font_background_color(Color::magenta).font_style({FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
+    std::cout << search << std::endl;
+   
+   //asking
+    std::cout << "How you want to search?" << std::endl;
+    std::cout << "(Type in the relative number?)" << std::endl;
+    std::cin >> search_no;
+    
+    //formula
+    if (search_no == 1)
+    {
+        std::string isbn_input;
+        std::string isbn_change;
+        std::string author_change;
+        std::string title_change;
+
+        std::cout << "Pls enter relevant isbn code: ";
+        std::cin >> isbn_input;
+        
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+
+            isbn_change = (*i).isbn;
+            author_change = (*i).author;
+            title_change = (*i).title;
+
+            if (isbn_change.find(isbn_input))
+            {
+                std::cout << "ISBN : " << isbn_change << std::endl;
+                std::cout << "Author : " << author_change << std::endl;
+                std::cout << "Title : " << title_change << std::endl;
+                break;
+                
+            }
+            
+        
+        
+        }
+
+    
+    }
 }

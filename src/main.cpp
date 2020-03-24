@@ -299,11 +299,7 @@ void option_4()
                         }
                     }
 
-                    else
-                    {
-                        std::cout << "Pls enter smtg else !!" << std::endl;
-                        break;
-                    }
+                    
                 }
             }
         }
@@ -373,11 +369,7 @@ void option_4()
                         }
                     }
 
-                    else
-                    {
-                        std::cout << "Pls enter smtg else !!" << std::endl;
-                        break;
-                    }
+                    
                 }
             }
         }

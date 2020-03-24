@@ -202,10 +202,15 @@ void option_4()
 
     if (search_no == 2)
     {
-        
+
         std::cout << "Pls enter relevant author: ";
         std::cin.ignore();
+
+        //
         std::getline(std::cin, author_input);
+        for_each(author_input.begin(), author_input.end(), [](char &a) {
+            a = ::toupper(a);
+        }); // done
 
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
@@ -221,8 +226,13 @@ void option_4()
             level_change = std::to_string((*i).level);
             genre_change = (*i).genre;
 
-            
+            //change to lowercase
+            for_each(author_change.begin(), author_change.end(), [](char &b) {
+                b = ::toupper(b);
+            }); //done
+
             if (strstr(author_change.c_str(), author_input.c_str()))
+
             {
                 std::cout << "ISBN : " << isbn_change << std::endl;
                 std::cout << "Author : " << author_change << std::endl;

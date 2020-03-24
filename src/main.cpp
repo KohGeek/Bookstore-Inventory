@@ -4,9 +4,6 @@
 #include <stdlib.h>
 #include <vector>
 
-#include <algorithm>
-
-
 #include <string>
 #include <string.h>
 #include <stdio.h>
@@ -156,7 +153,7 @@ void option_4()
 
     //change in value
     std::string isbn_change;
-    std::string author_change;   
+    std::string author_change;
     std::string title_change;
     std::string publisher_change;
     std::string year_change;
@@ -174,7 +171,7 @@ void option_4()
 
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
-            
+
             isbn_change = (*i).isbn;
             author_change = (*i).author;
             title_change = (*i).title;
@@ -208,14 +205,7 @@ void option_4()
         
         std::cout << "Pls enter relevant author: ";
         std::cin.ignore();
-        
-        //
         std::getline(std::cin, author_input);
-         for_each(author_input.begin(), author_input.end(), [](char
-		& a)
-		{
-			a = ::toupper(a);
-		}); // done
 
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
@@ -231,13 +221,7 @@ void option_4()
             level_change = std::to_string((*i).level);
             genre_change = (*i).genre;
 
-            //change to lowercase
-            for_each(author_change.begin(), author_change.end(), [](char
-		& b)
-		{
-			b = ::toupper(b);
-		});     //done
-
+            
             if (strstr(author_change.c_str(), author_input.c_str()))
             {
                 std::cout << "ISBN : " << isbn_change << std::endl;
@@ -259,14 +243,7 @@ void option_4()
     {
         std::cout << "Pls enter relevant book title: ";
         std::cin.ignore();
-        
-        //
         std::getline(std::cin, title_input);
-         for_each(title_input.begin(), title_input.end(), [](char
-		& c)
-		{
-			c = ::toupper(c);
-		}); // done
 
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
@@ -281,13 +258,6 @@ void option_4()
             rack_change = std::to_string((*i).rack);
             level_change = std::to_string((*i).level);
             genre_change = (*i).genre;
-
-                //change to lowercase
-                for_each(title_change.begin(), title_change.end(), [](char
-		& d)
-		{
-			d = ::toupper(d);
-		}); // done
 
             if (strstr(title_change.c_str(), title_input.c_str()))
             {

@@ -25,7 +25,7 @@ void option_4();
 
 int main()
 {
-
+    reader();
     int option;
 
     while (true)
@@ -56,12 +56,13 @@ int main()
         select.add_row({"2) Edit"});
         select.add_row({"3) Delete"});
         select.add_row({"4) Search"});
+        select.add_row({"5) Exit"});
 
         std::cout << select << std::endl;
         std::cout << "Choose your options : " << std::endl;
         std::cin >> option;
 
-        reader();
+       
 
         //Add data
         if (option == 1)
@@ -85,6 +86,11 @@ int main()
         else if (option == 4)
         {
             option_4();
+        }
+
+        //Exit Data
+        else if (option == 5){
+            return 0;
         }
 
         //error checking (menu)

@@ -21,7 +21,7 @@ using namespace tabulate;
 void option_1();
 void option_2();
 void option_3();
-void option_4();
+int option_4();
 
 int main()
 {
@@ -62,8 +62,6 @@ int main()
         std::cout << "Choose your options : " << std::endl;
         std::cin >> option;
 
-       
-
         //Add data
         if (option == 1)
         {
@@ -89,7 +87,8 @@ int main()
         }
 
         //Exit Data
-        else if (option == 5){
+        else if (option == 5)
+        {
             return 0;
         }
 
@@ -130,7 +129,7 @@ void option_3()
     system("CLS");
 }
 
-void option_4()
+int option_4()
 {
     bool check_search(true);
     while (check_search)
@@ -148,6 +147,7 @@ void option_4()
         search.add_row({"1) ISBN"});
         search.add_row({"2) Author"});
         search.add_row({"3) Title"});
+        search.add_row({"4) Back to Menu"});
 
         //styling
         search[0].format().font_background_color(Color::magenta).font_style({FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
@@ -230,13 +230,11 @@ void option_4()
                             break;
                         }
                     }
-
-                   
                 }
             }
         }
 
-        if (search_no == 2)
+        else if (search_no == 2)
         {
             bool check2(true);
             while (check2)
@@ -300,13 +298,11 @@ void option_4()
                             break;
                         }
                     }
-
-                    
                 }
             }
         }
 
-        if (search_no == 3)
+        else if (search_no == 3)
         {
             bool check3(true);
             while (check3)
@@ -370,10 +366,24 @@ void option_4()
                             break;
                         }
                     }
-
-                    
                 }
             }
         }
+
+        else if (search_no == 4)
+        {
+            system("CLS");
+            return 0;
+            
+        }
+
+        else{
+            std::cout << "Press enter smtg btw 1 to 3";
+            system("PAUSE");
+            check_search = true;
+
+        }
+
+       
     }
 }

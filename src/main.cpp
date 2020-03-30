@@ -135,7 +135,7 @@ int option_4()
     while (check_search)
     {
         //declaring variables
-        int search_no;
+        std::string search_no;
 
         //clear screen
         system("CLS");
@@ -156,6 +156,7 @@ int option_4()
         //asking
         std::cout << "How you want to search?" << std::endl;
         std::cout << "(Type in the relative number?)" << std::endl;
+        std::cin.ignore();
         std::cin >> search_no;
 
         //user_input
@@ -176,7 +177,7 @@ int option_4()
         std::string genre_change;
 
         //formula
-        if (search_no == 1)
+        if (search_no == "1")
         {
             bool check1(true);
             while (check1)
@@ -234,7 +235,7 @@ int option_4()
             }
         }
 
-        else if (search_no == 2)
+        else if (search_no == "2")
         {
             bool check2(true);
             while (check2)
@@ -302,7 +303,7 @@ int option_4()
             }
         }
 
-        else if (search_no == 3)
+        else if (search_no == "3")
         {
             bool check3(true);
             while (check3)
@@ -370,20 +371,17 @@ int option_4()
             }
         }
 
-        else if (search_no == 4)
+        else if (search_no == "4")
         {
             system("CLS");
             return 0;
+        }
+
+        else
+        {
+            std::cout << "Press enter smtg btw 1 to 3" << std::endl;
+            system("PAUSE");
             
         }
-
-        else{
-            std::cout << "Press enter smtg btw 1 to 3";
-            system("PAUSE");
-            check_search = true;
-
-        }
-
-       
     }
 }

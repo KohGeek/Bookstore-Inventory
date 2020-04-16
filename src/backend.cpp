@@ -12,7 +12,6 @@
 
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 {
-    std::string record_entry;
     std::string userquery;
     std::vector<int> matches;
     std::regex matchpattern;
@@ -69,102 +68,76 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 
     matchpattern = std::regex(userquery, std::regex_constants::extended | std::regex_constants::icase);
 
-    if (matched.empty())
+    switch (search_no)
     {
-        switch (search_no)
+    case '1':
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
-        case '1':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::regex_search((*i).isbn, matchpattern))
-                    matches.push_back(counter);
+            if (std::regex_search((*i).isbn, matchpattern))
+                matches.push_back(counter);
 
-                counter++;
-            }
-            break;
-        case '2':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::regex_search((*i).author, matchpattern))
-                    matches.push_back(counter);
-
-                counter++;
-            }
-            break;
-        case '3':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::regex_search((*i).title, matchpattern))
-                    matches.push_back(counter);
-
-                counter++;
-            }
-            break;
-        case '4':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::regex_search((*i).genre, matchpattern))
-                    matches.push_back(counter);
-
-                counter++;
-            }
-            break;
+            counter++;
         }
-    }
-    else
-    {
-        switch (search_no)
+        break;
+    case '2':
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
-        case '1':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::find(matched.begin(), matched.end(), counter) != matches.end())
-                    if (std::regex_search((*i).isbn, matchpattern))
-                        matches.push_back(counter);
+            if (std::regex_search((*i).author, matchpattern))
+                matches.push_back(counter);
 
-                counter++;
-            }
-            break;
-        case '2':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::find(matched.begin(), matched.end(), counter) != matches.end())
-                    if (std::regex_search((*i).author, matchpattern))
-                        matches.push_back(counter);
+            counter++;
+        }
+        break;
+    case '3':
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+            if (std::regex_search((*i).title, matchpattern))
+                matches.push_back(counter);
 
-                counter++;
-            }
-            break;
-        case '3':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::find(matched.begin(), matched.end(), counter) != matches.end())
-                    if (std::regex_search((*i).title, matchpattern))
-                        matches.push_back(counter);
+            counter++;
+        }
+        break;
+    case '4':
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+            if (std::regex_search((*i).genre, matchpattern))
+                matches.push_back(counter);
 
-                counter++;
-            }
-            break;
-        case '4':
-            for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
-            {
-                if (std::find(matched.begin(), matched.end(), counter) != matches.end())
-                    if (std::regex_search((*i).genre, matchpattern))
-                        matches.push_back(counter);
+            counter++;
+        }
+        break;
+    }
 
-                counter++;
+    if (matched.size() > 0)
+    {
+        for (auto i : matches)
+        {
+            auto matching = std::find(matched.begin(), matched.end(), i);
+            if (matching == matched.end())
+            {
+                matches.erase(matching);
             }
-            break;
         }
     }
 
     matched = matches;
-    return matches.size();
+
+    return matched.size();
 }
 
+/** what to validate?
+  * ISBN - 1
+  * 
+  * 
+  * 
+**/
 int validator(std::string validated, int type)
 {
-    return 0;
+    int error_state;
+    switch (type)
+    {
+    case 1:
+    }
 }
 
 int reader(std::vector<BOOK> &inventory)

@@ -127,16 +127,23 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 
 /** what to validate?
   * ISBN - 1
-  * 
-  * 
-  * 
+  * quantity - 2
+  * level/rack - 3
+  * price - 4
 **/
 int validator(std::string validated, int type)
 {
-    int error_state;
+    int error_state = 0;
     switch (type)
     {
     case 1:
+        break;
+    case 2:
+        break;
+    case 3:
+        break;
+    case 4:
+        break;
     }
 }
 

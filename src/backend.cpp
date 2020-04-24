@@ -10,27 +10,11 @@
 #include "tabulate/table.hpp"
 #include "core.hpp"
 
-/** flush()
- *
- * flush() is used to clear input buffer in a safe and clean manner
- * by looping through the input buffer. Additional value can be returned
- * to help validate input.
- *
-**/
-int flush()
-{
-    int hasextra = 0;
-    char s;
-    while ((s = fgetc(stdin)) != '\n' && s != EOF)
-        hasextra = 1;
-    return hasextra;
-}
-
 /** searchfunc(vector<BOOK> &inventory, vector<int> &matched)
  * 
- * 
- * 
- * 
+ *  Searchfunc is the engine behind query(BOOK, bool allowmultiple)
+ *  Uses regex to support case-insensitive and supposedly UTF-8 support (untested)
+ *  Allows the searching of ISBN, title, author, genre, rack, level and publisher
  * 
 **/
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
@@ -51,7 +35,8 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     searchinfo.add_row({"4) Genre"});
     searchinfo.add_row({"5) Rack"});
     searchinfo.add_row({"6) Level"});
-    searchinfo.add_row({"7) Exit search"});
+    searchinfo.add_row({"7) Publisher"});
+    searchinfo.add_row({"8) Exit search"});
 
     //styling
     searchinfo[0]
@@ -109,6 +94,10 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
             loopcheck = false;
             break;
         case '7':
+            std::cout << "Please enter the publisher name (full or partial):";
+            loopcheck = false;
+            break;
+        case '8':
             return 0;
         default:
             std::cout << searchinfo << std::endl;
@@ -177,6 +166,15 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
             counter++;
         }
         break;
+    case '7':
+        for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
+        {
+            if (std::regex_search((*i).publisher, matchpattern))
+                matches.push_back(counter);
+
+            counter++;
+        }
+        break;
     }
 
     if (matched.size() > 0)
@@ -196,24 +194,46 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     return matched.size();
 }
 
-// if return true then contains non-numerics
+/** intchecker(string)
+ *  
+ *  A submitted string will return true if there is any non-numerics
+ * 
+**/
 bool intchecker(std::string checked)
 {
     return checked.find_first_not_of("0123456789") != std::string::npos;
 }
 
-/** what to validate?
-  * ISBN - 1
-  * quantity/level/rack - 2
-  * price - 3
-  * year - 4
-  * Error state meanings:
-  *    0 - all clear
-  *    1 - length not accepted
-  *    2 - non-numeric
-  *    3 - empty
-  *    4 - out of range
+/** flush()
+ *
+ * flush() is used to clear input buffer in a safe and clean manner
+ * by looping through the input buffer. Additional value can be returned
+ * to help validate input.
+ *
 **/
+int flush()
+{
+    int hasextra = 0;
+    char s;
+    while ((s = fgetc(stdin)) != '\n' && s != EOF)
+        hasextra = 1;
+    return hasextra;
+}
+
+/** validator(string, int type, bool user)
+ *  Type supported:
+  *    1 - ISBN  (Length and numeric checks)
+  *    2 - Quantity/Level/Rack  (Numeric checks - no decimals)
+  *    3 - Price  (Numeric checks - with decimals)
+  *    4 - Year  (Numeric and range checks)
+  * Error state meanings:
+  *    0 - All clear
+  *    1 - Not ISBN format
+  *    2 - Contains alphabet in a numeric field
+  *    3 - Empty input
+  *    4 - Year not within range
+**/
+
 int validator(std::string &validated, int type, bool user)
 {
     int error_state;
@@ -304,6 +324,12 @@ int validator(std::string &validated, int type, bool user)
     return error_state;
 }
 
+/** reader(BOOK)
+ * 
+ *  Allow user to choose files, reads and parses csv file, with built in validation to weed out corrupted entry.
+ *  Uses csv by p-ranav
+ * 
+**/
 int reader(std::vector<BOOK> &inventory)
 {
 
@@ -442,6 +468,12 @@ int reader(std::vector<BOOK> &inventory)
     return 0;
 }
 
+/** writer(BOOK)
+ * 
+ *  Allow user to choose where to save, and saves in the proper csv format.
+ *  Uses csv by p-ranav
+ * 
+**/
 int writer(std::vector<BOOK> &inventory)
 {
 

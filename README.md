@@ -31,3 +31,11 @@ Naturally, when the issue of a database environment comes up, one would be inter
 [csv](https://github.com/p-ranav/csv) and [tabulate](https://github.com/p-ranav/tabulate) by p-ranav is licensed under the MIT License.
 
 All of the included codes, files and documentation (except those published by UTAR) are licensed under the GNU GPL v3 License.
+
+## Future Plans
+
+As the assignment itself has came to a fateful end, perhaps a bit dramatic even for those involved, the repo has been made public for all to use and learn. Future plans of this project will be listed below, but knowing us it may very well be a pipe dream.
+
+- [ ] Developing a fully GUI version
+- [ ] Polishing and complete rid of validation bugs (we know it's there, but 3 hours of QA can't do much)
+- [ ] Update the ext. libs to the latest version

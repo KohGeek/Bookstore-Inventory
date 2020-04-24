@@ -184,7 +184,7 @@ int removerecord(std::vector<BOOK> &inventory)
 
             if (entrynumber == -1)
             {
-                std::cout << "Exiting to menu...\n";
+                std::cout << "Search canceled.\n\n";
                 break;
             }
 
@@ -252,7 +252,7 @@ int editrecord(std::vector<BOOK> &inventory)
 
             if (entrynumber == -1)
             {
-                std::cout << "Exiting to menu...\n";
+                std::cout << "Search canceled.\n";
                 break;
             }
 

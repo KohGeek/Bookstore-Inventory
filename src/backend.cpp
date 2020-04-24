@@ -263,7 +263,8 @@ int validator(std::string &validated, int type, bool user)
                 }
                 else if (intchecker(validated))
                 {
-                    error_state = 2;
+                    if (validated.find_first_not_of("0123456789") != validated.back() && (validated.back() != 'X' || validated.back() != 'x'))
+                        error_state = 2;
                 }
                 break;
             case 2:

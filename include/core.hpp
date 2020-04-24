@@ -18,11 +18,14 @@ struct BOOK
 int reader(std::vector<BOOK> &inventory);
 int writer(std::vector<BOOK> &inventory);
 
-int validator(std::string validated, int type);
+bool intchecker(std::string checked);
+int validator(std::string &validated, int type, bool user);
+int flush();
 
 void displaymenu();
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched);
 
+void promptsave(std::vector<BOOK> &inventory);
 int addrecord(std::vector<BOOK> &inventory);
 int removerecord(std::vector<BOOK> &inventory);
 int editrecord(std::vector<BOOK> &inventory);

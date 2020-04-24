@@ -9,6 +9,7 @@
 
 using namespace std;
 
+// marking as complete. Awaiting testing.
 int main()
 {
     ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
@@ -16,29 +17,34 @@ int main()
     vector<BOOK> inventory;
     char option = '\0';
 
-    // check if user wants to load anything
-    reader(inventory);
-
     displaymenu();
     cout << "Choose your options : " << endl;
 
-    while (option != '5')
+    while (option != 'e' && option != 'E')
     {
         cin >> option;
+
+        if (flush() == 1)
+        {
+            option = '7';
+        }
 
         switch (option)
         {
         case '1':
             system("CLS");
             addrecord(inventory);
+            promptsave(inventory);
             break;
         case '2':
             system("CLS");
             removerecord(inventory);
+            promptsave(inventory);
             break;
         case '3':
             system("CLS");
             editrecord(inventory);
+            promptsave(inventory);
             break;
         case '4':
             system("CLS");
@@ -48,13 +54,21 @@ int main()
             system("CLS");
             query(inventory, true);
             break;
-        case '6':
-            //prompt to save here
+        case 's':
+        case 'S':
+            writer(inventory);
+            break;
+        case 'l':
+        case 'L':
+            reader(inventory);
+            break;
+        case 'e':
+        case 'E':
             break;
         default:
             system("CLS");
             displaymenu();
-            cout << "Error, please input value between 1 to 6." << endl;
+            cout << "Error, please input the listed values." << endl;
         }
 
         cout << "Press any key to continue...";
@@ -64,9 +78,12 @@ int main()
         cout << "Choose your options : " << endl;
     }
 
+    promptsave(inventory);
+
     return 0;
 }
 
+//Complete
 void displaymenu()
 {
     //header
@@ -94,7 +111,11 @@ void displaymenu()
     select.add_row({"3) Delete"});
     select.add_row({"4) List"});
     select.add_row({"5) Search"});
-    select.add_row({"6) Exit"});
+    select.add_row({""});
+    select.add_row({"S) Save"});
+    select.add_row({"L) Load"});
+    select.add_row({""});
+    select.add_row({"E) Exit"});
 
     cout << select << endl;
 }

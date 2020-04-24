@@ -338,7 +338,7 @@ int reader(std::vector<BOOK> &inventory)
 {
 
     char filename[MAX_PATH];
-    int counter = 1;
+    int counter = 0;
     std::vector<int> skipped;
     BOOK temp;
 
@@ -391,6 +391,7 @@ int reader(std::vector<BOOK> &inventory)
         if (csvparse.ready())
         {
             auto row = csvparse.next_row();
+            counter++;
 
             if (validator(row["ISBN"], 1, 0))
             {
@@ -459,7 +460,6 @@ int reader(std::vector<BOOK> &inventory)
             temp.genre = row["Genre"];
             inventory.push_back(temp);
         }
-        counter++;
     }
 
     // If there's any skipped entry, notify the user.

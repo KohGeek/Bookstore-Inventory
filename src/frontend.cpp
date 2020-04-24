@@ -17,6 +17,7 @@ void promptsave(std::vector<BOOK> &inventory)
     do
     {
         std::cout << "Would you like to save? \n1 -  Yes\n2 - No\nPlease key in a value: ";
+        std::cin >> option;
 
         switch (option)
         {

@@ -196,11 +196,13 @@ bool intchecker(std::string checked)
 **/
 int validator(std::string &validated, int type, bool user)
 {
-    int error_state = 0;
+    int error_state;
     bool hasdecimal;
 
     do
     {
+        error_state = 0;
+
         if (validated.empty() == true)
         {
             error_state = 3;
@@ -212,7 +214,7 @@ int validator(std::string &validated, int type, bool user)
             switch (type)
             {
             case 1:
-                if (validated.length() != 10 || validated.length() != 13)
+                if (validated.length() != 10 && validated.length() != 13)
                 {
                     error_state = 1;
                 }
@@ -242,13 +244,13 @@ int validator(std::string &validated, int type, bool user)
                 }
                 break;
             case 4:
-                if (intchecker(validated))
-                {
-                    error_state = 2;
-                }
-                else if (stoi(validated) < 0 && stoi(validated) > 3000)
+                if (stoi(validated) < 0 || stoi(validated) > 3000)
                 {
                     error_state = 4;
+                }
+                else if (intchecker(validated))
+                {
+                    error_state = 2;
                 }
             }
         }
@@ -415,7 +417,6 @@ int reader(std::vector<BOOK> &inventory)
             std::cout << *i << std::endl;
         }
         std::cout << "have been omitted due to data error. Please verify them.";
-        getch();
     }
 
     return 0;

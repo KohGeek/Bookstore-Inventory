@@ -29,13 +29,17 @@
 - [x] List records
 - [ ] Prompt to save (95%)
 
+## Formatting fix
+
+- [ ] Adding, editing and removing?
+
 ## Other Todos
 
-- [ ] Module-lise input checking
+- [x] Module-lise input checking
 - [x] Module-lise menu display?
-- [ ] Prompt for save
-- [ ] Prompt for loading (maybe bind to a shortcut key?)
-- [ ] All the remainder feature - adding, editing and deleting
+- [x] Prompt for save
+- [x] Prompt for loading (maybe bind to a shortcut key?)
+- [x] All the remainder feature - adding, editing and deleting
 - [x] Look into more search options, maybe even lazy search?
 
 ## Mandatory

@@ -330,7 +330,7 @@ int reader(std::vector<BOOK> &inventory)
             std::cout << "You cancelled.\n";
         }
 
-        return 0;
+        return 1;
     }
 
     csvparse.read(filename);
@@ -464,7 +464,8 @@ int writer(std::vector<BOOK> &inventory)
         default:
             std::cout << "You cancelled.\n";
         }
-        return 0;
+        csvWriter.close();
+        return 1;
     }
 
     for (auto i = inventory.cbegin(); i != inventory.cend(); i++)

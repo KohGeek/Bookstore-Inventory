@@ -213,11 +213,11 @@ bool intchecker(std::string checked)
 **/
 int flush()
 {
-    int hasextra = 0;
+    int overflow = 0;
     char s;
     while ((s = fgetc(stdin)) != '\n' && s != EOF)
-        hasextra = 1;
-    return hasextra;
+        overflow = 1;
+    return overflow;
 }
 
 /** validator(string, int type, bool user)
@@ -315,7 +315,7 @@ int validator(std::string &validated, int type, bool user)
 
             if (error_state != 0)
             {
-                std::cin >> validated;
+                std::getline(std::cin, validated);
             }
         }
 

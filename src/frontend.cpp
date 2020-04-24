@@ -9,6 +9,11 @@
 
 using namespace tabulate;
 
+/** promptsave(BOOK)
+ * 
+ *  The following function is used to pester the user everytime any change is made so that no changes are lost.
+ * 
+**/
 void promptsave(std::vector<BOOK> &inventory)
 {
     Table savetable;
@@ -19,11 +24,17 @@ void promptsave(std::vector<BOOK> &inventory)
     savetable.add_row({"1) Yes"});
     savetable.add_row({"2) No"});
 
+    // the following loop is for input validation purpose solely
     do
     {
         std::cout << "\n\n"
                   << savetable << "\n\nPlease key in a value: ";
         std::cin >> option;
+
+        if (flush() == 1)
+        {
+            option = '3';
+        }
 
         switch (option)
         {
@@ -42,6 +53,11 @@ void promptsave(std::vector<BOOK> &inventory)
     } while (loop == true);
 }
 
+/** addrecord(BOOK)
+ * 
+ *  Allows user to add record, and displays to the user what record is added in the end.
+ * 
+**/
 int addrecord(std::vector<BOOK> &inventory)
 {
     Table addedentries;
@@ -55,6 +71,7 @@ int addrecord(std::vector<BOOK> &inventory)
     menutable.add_row({"1) Add more entries"});
     menutable.add_row({"2) Exit to menu"});
 
+    // Similarly, such a loop is used for inpur validation
     do
     {
         std::cout << menutable
@@ -70,49 +87,53 @@ int addrecord(std::vector<BOOK> &inventory)
         {
         case '1':
             std::cout << "\nISBN Code: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 1, 1);
             newentry.isbn = input;
 
             std::cout << "Author: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             newentry.author = input;
 
             std::cout << "Title: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             newentry.title = input;
 
             std::cout << "Publisher: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             newentry.publisher = input;
 
             std::cout << "Year Published: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 4, 1);
             newentry.year_published = std::stoi(input);
 
             std::cout << "Quantity: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             newentry.quantity = std::stoi(input);
 
             std::cout << "Rack: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             newentry.rack = std::stoi(input);
 
             std::cout << "Level: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             newentry.level = std::stoi(input);
 
             std::cout << "Price: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 3, 1);
             newentry.price = std::stod(input);
 
             std::cout << "Genre: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             newentry.genre = input;
 
             std::cout << "\n";
@@ -147,6 +168,11 @@ int addrecord(std::vector<BOOK> &inventory)
     return 0;
 }
 
+/** removerecord(BOOK)
+ * 
+ *  Allows user to remove record, and displays to the user what record is removed in the end.
+ * 
+**/
 int removerecord(std::vector<BOOK> &inventory)
 {
     Table removedentries;
@@ -213,6 +239,11 @@ int removerecord(std::vector<BOOK> &inventory)
     return 0;
 }
 
+/** editrecord(BOOK)
+ * 
+ *  Allows user to edit record, and displays to the user what record is edited in the end.
+ * 
+**/
 int editrecord(std::vector<BOOK> &inventory)
 {
     Table editedentries;
@@ -250,49 +281,53 @@ int editrecord(std::vector<BOOK> &inventory)
             }
 
             std::cout << "\nISBN Code: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 1, 1);
             editedentry.isbn = input;
 
             std::cout << "Author: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             editedentry.author = input;
 
             std::cout << "Title: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             editedentry.title = input;
 
             std::cout << "Publisher: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             editedentry.publisher = input;
 
             std::cout << "Year Published: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 4, 1);
             editedentry.year_published = std::stoi(input);
 
             std::cout << "Quantity: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             editedentry.quantity = std::stoi(input);
 
             std::cout << "Rack: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             editedentry.rack = std::stoi(input);
 
             std::cout << "Level: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 2, 1);
             editedentry.level = std::stoi(input);
 
             std::cout << "Price: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
             validator(input, 3, 1);
             editedentry.price = std::stod(input);
 
             std::cout << "Genre: ";
-            std::cin >> input;
+            std::getline(std::cin, input);
+            validator(input, 5, 1);
             editedentry.genre = input;
 
             inventory[entrynumber] = editedentry;

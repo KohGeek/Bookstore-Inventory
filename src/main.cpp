@@ -154,5 +154,6 @@ void displaymenu()
     select.add_row({"E) Exit"});
 
     // Display
-    cout << header << select << endl;
+    cout << header << "\n"
+         << select << endl;
 }

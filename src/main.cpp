@@ -18,6 +18,7 @@ int main()
     char option = '\0';
 
     displaymenu();
+    cout << "\nPlease proceed to load a file with L) before continuing.\n\n";
     cout << "Choose your options : " << endl;
 
     while (option != 'e' && option != 'E')

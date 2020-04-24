@@ -50,13 +50,15 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     searchinfo[0].format().font_background_color(tabulate::Color::magenta).font_style({tabulate::FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
 
     //asking
-    std::cout << searchinfo << std::endl;
-    std::cout << "How you want to search?" << std::endl;
-    std::cout << "(Type in the relative number?)" << std::endl;
+    std::cout << "\n"
+              << searchinfo << std::endl;
+    std::cout << "\nHow you want to search?" << std::endl;
+    std::cout << "(Type in the relative number)" << std::endl;
 
     do
     {
         std::cin >> search_no;
+        std::cout << "\n";
 
         if (flush() == 1)
         {
@@ -244,13 +246,13 @@ int validator(std::string &validated, int type, bool user)
                 }
                 break;
             case 4:
-                if (stoi(validated) < 0 || stoi(validated) > 3000)
-                {
-                    error_state = 4;
-                }
-                else if (intchecker(validated))
+                if (intchecker(validated))
                 {
                     error_state = 2;
+                }
+                else if (stoi(validated) < 0 || stoi(validated) > 3000)
+                {
+                    error_state = 4;
                 }
             }
         }
@@ -263,7 +265,7 @@ int validator(std::string &validated, int type, bool user)
                 std::cout << "Incorrect length! ISBN must be 10 or 13 digits. Please try again: ";
                 break;
             case 2:
-                std::cout << "Number keyed in is not accepted/is not a number! Please try again: ";
+                std::cout << "Not a valid number for this! Please try again: ";
                 break;
             case 3:
                 std::cout << "You didn't type anything? Please try again: ";
@@ -328,7 +330,7 @@ int reader(std::vector<BOOK> &inventory)
             std::cout << "You cancelled.\n";
         }
 
-        return 1;
+        return 0;
     }
 
     csvparse.read(filename);
@@ -462,7 +464,7 @@ int writer(std::vector<BOOK> &inventory)
         default:
             std::cout << "You cancelled.\n";
         }
-        return 1;
+        return 0;
     }
 
     for (auto i = inventory.cbegin(); i != inventory.cend(); i++)

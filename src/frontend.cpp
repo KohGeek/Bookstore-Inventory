@@ -12,44 +12,54 @@ using namespace tabulate;
 
 void promptsave(std::vector<BOOK> &inventory)
 {
+    Table savetable;
     bool loop = true;
     char option;
+
+    savetable.add_row({"Save?"});
+    savetable.add_row({"1) Yes"});
+    savetable.add_row({"2) No"});
+
     do
     {
-        std::cout << "\nWould you like to save? \n1 -  Yes\n2 - No\nPlease key in a value: ";
+        std::cout << "\n\n"
+                  << savetable << "\n\nPlease key in a value: ";
         std::cin >> option;
 
         switch (option)
         {
         case '1':
             writer(inventory);
-            std::cout << "Save attempted.";
+            std::cout << "Save attempted.\n";
             loop = false;
             break;
         case '2':
-            std::cout << "Okay.";
+            std::cout << "Okay.\n";
             loop = false;
             break;
         default:
-            std::cout << "Invalid option! Please try again. \n";
+            std::cout << "Invalid option! Please try again. \n\n";
         }
-
     } while (loop == true);
 }
 
 int addrecord(std::vector<BOOK> &inventory)
 {
     Table addedentries;
+    Table menutable;
     char option;
     BOOK newentry;
     std::string input;
 
     addedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
+    menutable.add_row({"Add Entry"});
+    menutable.add_row({"1) Add more entries"});
+    menutable.add_row({"2) Exit to menu"});
 
     do
     {
-        std::cout << "Add Entry - 1\n"
-                  << "Exit to menu - 2\nPlease type your option here: ";
+        std::cout << menutable
+                  << "\n\nPlease type your option here: ";
         std::cin >> option;
 
         if (flush() == 1)
@@ -146,16 +156,20 @@ int addrecord(std::vector<BOOK> &inventory)
 int removerecord(std::vector<BOOK> &inventory)
 {
     Table removedentries;
+    Table menutable;
     std::vector<BOOK>::iterator i = inventory.begin();
     char option;
     int entrynumber;
 
     removedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
+    menutable.add_row({"Remove Entry"});
+    menutable.add_row({"1) Remove more entries"});
+    menutable.add_row({"2) Exit to menu"});
 
     do
     {
-        std::cout << "Remove Entry - 1\n"
-                  << "Exit to menu - 2\nPlease type your option here: ";
+        std::cout << menutable
+                  << "\n\nPlease type your option here: ";
         std::cin >> option;
 
         if (flush() == 1)
@@ -209,17 +223,21 @@ int removerecord(std::vector<BOOK> &inventory)
 int editrecord(std::vector<BOOK> &inventory)
 {
     Table editedentries;
+    Table menutable;
     char option;
     int entrynumber;
     BOOK editedentry;
     std::string input;
 
     editedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
+    menutable.add_row({"Edit Entry"});
+    menutable.add_row({"1) Edit more entries"});
+    menutable.add_row({"2) Exit to menu"});
 
     do
     {
-        std::cout << "Edit Entry - 1\n"
-                  << "Exit to menu - 2\nPlease type your option here: ";
+        std::cout << menutable
+                  << "\n\nPlease type your option here: ";
         std::cin >> option;
 
         if (flush() == 1)
@@ -430,7 +448,7 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
             default:
                 std::cout << "Invalid option. Please try again.";
             }
-        } while (loop = true);
+        } while (loop == true);
 
         if (allowmultiple = false)
         {

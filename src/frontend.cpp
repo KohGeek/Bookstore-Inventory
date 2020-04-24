@@ -77,17 +77,14 @@ int addrecord(std::vector<BOOK> &inventory)
 
             std::cout << "Author: ";
             std::cin >> input;
-            validator(input, 5, 1);
             newentry.author = input;
 
             std::cout << "Title: ";
             std::cin >> input;
-            validator(input, 5, 1);
             newentry.title = input;
 
             std::cout << "Publisher: ";
             std::cin >> input;
-            validator(input, 5, 1);
             newentry.publisher = input;
 
             std::cout << "Year Published: ";
@@ -117,7 +114,6 @@ int addrecord(std::vector<BOOK> &inventory)
 
             std::cout << "Genre: ";
             std::cin >> input;
-            validator(input, 5, 1);
             newentry.genre = input;
 
             std::cout << "\n";
@@ -263,17 +259,14 @@ int editrecord(std::vector<BOOK> &inventory)
 
             std::cout << "Author: ";
             std::cin >> input;
-            validator(input, 5, 1);
             editedentry.author = input;
 
             std::cout << "Title: ";
             std::cin >> input;
-            validator(input, 5, 1);
             editedentry.title = input;
 
             std::cout << "Publisher: ";
             std::cin >> input;
-            validator(input, 5, 1);
             editedentry.publisher = input;
 
             std::cout << "Year Published: ";
@@ -303,7 +296,6 @@ int editrecord(std::vector<BOOK> &inventory)
 
             std::cout << "Genre: ";
             std::cin >> input;
-            validator(input, 5, 1);
             editedentry.genre = input;
 
             inventory[entrynumber] = editedentry;

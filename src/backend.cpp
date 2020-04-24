@@ -4,7 +4,6 @@
 #include <windows.h>
 #include <algorithm>
 #include <regex>
-#include <conio.h>
 
 #include "csv/reader.hpp"
 #include "csv/writer.hpp"
@@ -27,6 +26,13 @@ int flush()
     return hasextra;
 }
 
+/** searchfunc(vector<BOOK> &inventory, vector<int> &matched)
+ * 
+ * 
+ * 
+ * 
+ * 
+**/
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 {
     std::string userquery;
@@ -45,9 +51,20 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     searchinfo.add_row({"4) Genre"});
     searchinfo.add_row({"5) Rack"});
     searchinfo.add_row({"6) Level"});
+    searchinfo.add_row({"7) Exit search"});
 
     //styling
-    searchinfo[0].format().font_background_color(tabulate::Color::magenta).font_style({tabulate::FontStyle::bold}).border_top(" ").border_bottom(" ").border_left(" ").border_right(" ").corner(" ").padding_top(1).padding_bottom(1);
+    searchinfo[0]
+        .format()
+        .font_background_color(tabulate::Color::magenta)
+        .font_style({tabulate::FontStyle::bold})
+        .border_top(" ")
+        .border_bottom(" ")
+        .border_left(" ")
+        .border_right(" ")
+        .corner(" ")
+        .padding_top(1)
+        .padding_bottom(1);
 
     //asking
     std::cout << "\n"
@@ -91,6 +108,8 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
             std::cout << "Please enter the level number (full or partial):";
             loopcheck = false;
             break;
+        case '7':
+            return 0;
         default:
             std::cout << searchinfo << std::endl;
             std::cout << "Please key in a number between 1 to 4:" << std::endl;
@@ -188,7 +207,6 @@ bool intchecker(std::string checked)
   * quantity/level/rack - 2
   * price - 3
   * year - 4
-  * others - 5
   * Error state meanings:
   *    0 - all clear
   *    1 - length not accepted

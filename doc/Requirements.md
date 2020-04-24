@@ -16,22 +16,22 @@
 
 ## Renewed Todos
 
-- [ ] Reader (95%)
+- [x] Reader
 - [x] Writer
-- [ ] Validator (95%)
-- [ ] Menu Validator (95%)
+- [x] Validator
+- [x] Menu Validator
 - [x] Static menu
-- [ ] Search frontend (95%)
+- [x] Search frontend
 - [x] Search backend
-- [ ] Add records (95%)
-- [ ] Edit records (95%)
-- [ ] Remove records (95%)
+- [x] Add records
+- [x] Edit records
+- [x] Remove records
 - [x] List records
-- [ ] Prompt to save (95%)
+- [x] Prompt to save
 
 ## Formatting fix
 
-- [ ] Adding, editing and removing?
+- [x] Adding, editing and removing?
 
 ## Other Todos
 

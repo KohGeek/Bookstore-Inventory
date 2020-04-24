@@ -19,6 +19,7 @@
 **/
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 {
+    tabulate::Table searchinfo;
     std::string userquery;
     std::vector<int> matches;
     std::regex matchpattern;
@@ -26,8 +27,6 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     char search_no = NULL;
     int counter = 0;
 
-    //Search Table
-    tabulate::Table searchinfo;
     searchinfo.add_row({"Search"});
     searchinfo.add_row({"1) ISBN"});
     searchinfo.add_row({"2) Author"});
@@ -37,8 +36,6 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
     searchinfo.add_row({"6) Level"});
     searchinfo.add_row({"7) Publisher"});
     searchinfo.add_row({"8) Exit search"});
-
-    //styling
     searchinfo[0]
         .format()
         .font_background_color(tabulate::Color::magenta)
@@ -51,12 +48,12 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
         .padding_top(1)
         .padding_bottom(1);
 
-    //asking
     std::cout << "\n"
               << searchinfo << std::endl;
     std::cout << "\nHow you want to search?" << std::endl;
     std::cout << "(Type in the relative number)" << std::endl;
 
+    // Like most loop, this is for input validation
     do
     {
         std::cin >> search_no;
@@ -64,7 +61,7 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 
         if (flush() == 1)
         {
-            search_no = '5';
+            search_no = '0';
         }
 
         switch (search_no)
@@ -101,15 +98,17 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
             return 0;
         default:
             std::cout << searchinfo << std::endl;
-            std::cout << "Please key in a number between 1 to 4:" << std::endl;
+            std::cout << "Please key in a number between 1 to 8:" << std::endl;
         }
 
-        std::cin >> userquery;
+        std::getline(std::cin, userquery);
 
     } while (loopcheck);
 
+    // We use regex instead of substring to mitigate the need to do case conversation. Plus experimental UTF-8 support.
     matchpattern = std::regex(userquery, std::regex_constants::extended | std::regex_constants::icase);
 
+    // Using the regex, basically log every match for the categories
     switch (search_no)
     {
     case '1':
@@ -177,6 +176,8 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
         break;
     }
 
+    // If an external list of int is provided, it means we are narrowing searches
+    // This segment removes anything that doesn't exist in both the internal and external table.
     if (matched.size() > 0)
     {
         for (auto i : matches)
@@ -191,6 +192,7 @@ int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched)
 
     matched = matches;
 
+    // Returns the size
     return matched.size();
 }
 
@@ -226,6 +228,7 @@ int flush()
   *    2 - Quantity/Level/Rack  (Numeric checks - no decimals)
   *    3 - Price  (Numeric checks - with decimals)
   *    4 - Year  (Numeric and range checks)
+  *    5 - Everything else (empty checks?)
   * Error state meanings:
   *    0 - All clear
   *    1 - Not ISBN format
@@ -274,6 +277,7 @@ int validator(std::string &validated, int type, bool user)
                 {
                     if (isdigit(validated[i]) == 0)
                     {
+                        // If more than one dot, faulty input.
                         if (i != 0 && validated[i] == '.' && hasdecimal == 0)
                         {
                             hasdecimal = 1;
@@ -345,6 +349,7 @@ int reader(std::vector<BOOK> &inventory)
         .skip_empty_rows(true)
         .column_names("ISBN", "Author", "Title", "Publisher", "YearPublished", "Price", "Quantity", "Rack", "Level", "Genre");
 
+    // All of this is to summon a dialog box for selecting a file name, basically.
     OPENFILENAME ofndialog;
     ZeroMemory(&filename, sizeof(filename));
     ZeroMemory(&ofndialog, sizeof(ofndialog));
@@ -357,6 +362,7 @@ int reader(std::vector<BOOK> &inventory)
     ofndialog.nMaxFile = MAX_PATH;
     ofndialog.Flags = OFN_DONTADDTORECENT | OFN_FILEMUSTEXIST;
 
+    // Exception catching
     if (!GetOpenFileNameA(&ofndialog))
     {
         switch (CommDlgExtendedError())
@@ -381,6 +387,7 @@ int reader(std::vector<BOOK> &inventory)
 
     while (csvparse.busy())
     {
+        // For every line, validate as needed, and add to the vector.
         if (csvparse.ready())
         {
             auto row = csvparse.next_row();
@@ -455,9 +462,10 @@ int reader(std::vector<BOOK> &inventory)
         counter++;
     }
 
+    // If there's any skipped entry, notify the user.
     if (!skipped.empty())
     {
-        std::cout << "The following entries, \n";
+        std::cout << "\nThe following entries, \n";
         for (auto i = skipped.cbegin(); i != skipped.cend(); i++)
         {
             std::cout << *i << std::endl;

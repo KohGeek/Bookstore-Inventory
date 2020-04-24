@@ -1,8 +1,12 @@
 #include <iostream>
+#include <iomanip>
 #include <stdlib.h>
 #include <vector>
 #include <algorithm>
 #include <string>
+#include <sstream>
+#include <ios>
+#include <limits>
 
 #include "tabulate/table.hpp"
 #include "core.hpp"
@@ -60,18 +64,17 @@ void promptsave(std::vector<BOOK> &inventory)
 **/
 int addrecord(std::vector<BOOK> &inventory)
 {
-    Table addedentries;
     Table menutable;
     char option;
     BOOK newentry;
+    std::vector<BOOK> newentries;
     std::string input;
 
-    addedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
     menutable.add_row({"Add Entry"});
     menutable.add_row({"1) Add more entries"});
     menutable.add_row({"2) Exit to menu"});
 
-    // Similarly, such a loop is used for inpur validation
+    // Similarly, such a loop is used for input validation
     do
     {
         std::cout << menutable
@@ -138,18 +141,8 @@ int addrecord(std::vector<BOOK> &inventory)
 
             std::cout << "\n";
 
+            newentries.push_back(newentry);
             inventory.push_back(newentry);
-            addedentries.add_row({newentry.isbn,
-                                  newentry.author,
-                                  newentry.title,
-                                  newentry.publisher,
-                                  std::to_string(newentry.year_published),
-                                  std::to_string(newentry.price),
-                                  std::to_string(newentry.quantity),
-                                  std::to_string(newentry.rack),
-                                  std::to_string(newentry.level),
-                                  newentry.genre});
-
             break;
 
         case '2':
@@ -162,8 +155,9 @@ int addrecord(std::vector<BOOK> &inventory)
 
     } while (option != '2');
 
-    std::cout << "Added entries as below: \n"
-              << addedentries;
+    std::cout << "\nAdded entries as below: \n";
+    listrecords(newentries, true, std::vector<int>());
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     return 0;
 }
@@ -175,13 +169,12 @@ int addrecord(std::vector<BOOK> &inventory)
 **/
 int removerecord(std::vector<BOOK> &inventory)
 {
-    Table removedentries;
     Table menutable;
     std::vector<BOOK>::iterator i = inventory.begin();
+    std::vector<BOOK> removedentries;
     char option;
     int entrynumber;
 
-    removedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
     menutable.add_row({"Remove Entry"});
     menutable.add_row({"1) Remove more entries"});
     menutable.add_row({"2) Exit to menu"});
@@ -208,16 +201,7 @@ int removerecord(std::vector<BOOK> &inventory)
                 break;
             }
 
-            removedentries.add_row({inventory[entrynumber].isbn,
-                                    inventory[entrynumber].author,
-                                    inventory[entrynumber].title,
-                                    inventory[entrynumber].publisher,
-                                    std::to_string(inventory[entrynumber].year_published),
-                                    std::to_string(inventory[entrynumber].price),
-                                    std::to_string(inventory[entrynumber].quantity),
-                                    std::to_string(inventory[entrynumber].rack),
-                                    std::to_string(inventory[entrynumber].level),
-                                    inventory[entrynumber].genre});
+            removedentries.push_back(inventory[entrynumber]);
             advance(i, entrynumber);
             inventory.erase(i);
 
@@ -233,8 +217,9 @@ int removerecord(std::vector<BOOK> &inventory)
 
     } while (option != '2');
 
-    std::cout << "Removed entries as below: \n"
-              << removedentries;
+    std::cout << "\nRemoved entries as below: \n";
+    listrecords(removedentries, true, std::vector<int>());
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     return 0;
 }
@@ -246,14 +231,13 @@ int removerecord(std::vector<BOOK> &inventory)
 **/
 int editrecord(std::vector<BOOK> &inventory)
 {
-    Table editedentries;
+    std::vector<BOOK> editedentries;
     Table menutable;
     char option;
     int entrynumber;
     BOOK editedentry;
     std::string input;
 
-    editedentries.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
     menutable.add_row({"Edit Entry"});
     menutable.add_row({"1) Edit more entries"});
     menutable.add_row({"2) Exit to menu"});
@@ -330,20 +314,9 @@ int editrecord(std::vector<BOOK> &inventory)
             validator(input, 5, 1);
             editedentry.genre = input;
 
+            // Editing is replacing
             inventory[entrynumber] = editedentry;
-            editedentries.add_row({editedentry.isbn,
-                                   editedentry.author,
-                                   editedentry.title,
-                                   editedentry.publisher,
-                                   std::to_string(editedentry.year_published),
-                                   std::to_string(editedentry.price),
-                                   std::to_string(editedentry.quantity),
-                                   std::to_string(editedentry.rack),
-                                   std::to_string(editedentry.level),
-                                   editedentry.genre});
-
-            std::cout << "\n";
-
+            editedentries.push_back(editedentry);
             break;
 
         case '2':
@@ -356,28 +329,41 @@ int editrecord(std::vector<BOOK> &inventory)
 
     } while (option != '2');
 
-    std::cout << "Edited entries as below: \n"
-              << editedentries;
+    std::cout << "\nEdited entries as below: \n";
+    listrecords(editedentries, true, std::vector<int>());
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
     return 0;
 }
 
+/** listrecords(BOOK, bool showall, vector<int> matched)
+ * 
+ *  Allows user to list all records that is loaded into memory.
+ *  Serves dual functions. Cam show all records, or list a selected list of records (presented through int vector) 
+ *  Showall facilitates this
+ * 
+**/
 int listrecords(std::vector<BOOK> &inventory, bool showall, std::vector<int> &matched)
 {
     int numberofmatch = matched.size();
     Table queriedresults;
     queriedresults.add_row({"ISBN", "Author", "Title", "Publisher", "Year", "Price", "Quantity", "Rack", "Level", "Genre"});
+    std::stringstream stream;
+    std::string price;
 
     if (showall)
     {
         for (auto i = inventory.cbegin(); i != inventory.cend(); i++)
         {
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(2) << (*i).price;
+            price = stream.str();
             queriedresults.add_row({(*i).isbn,
                                     (*i).author,
                                     (*i).title,
                                     (*i).publisher,
                                     std::to_string((*i).year_published),
-                                    std::to_string((*i).price),
+                                    price,
                                     std::to_string((*i).quantity),
                                     std::to_string((*i).rack),
                                     std::to_string((*i).level),
@@ -388,12 +374,15 @@ int listrecords(std::vector<BOOK> &inventory, bool showall, std::vector<int> &ma
     {
         for (int i = 0; i < numberofmatch; i++)
         {
+            stream.str(std::string());
+            stream << std::fixed << std::setprecision(2) << inventory[matched[i]].price;
+            price = stream.str();
             queriedresults.add_row({inventory[matched[i]].isbn,
                                     inventory[matched[i]].author,
                                     inventory[matched[i]].title,
                                     inventory[matched[i]].publisher,
                                     std::to_string(inventory[matched[i]].year_published),
-                                    std::to_string(inventory[matched[i]].price),
+                                    price,
                                     std::to_string(inventory[matched[i]].quantity),
                                     std::to_string(inventory[matched[i]].rack),
                                     std::to_string(inventory[matched[i]].level),
@@ -405,6 +394,12 @@ int listrecords(std::vector<BOOK> &inventory, bool showall, std::vector<int> &ma
     return 0;
 }
 
+/** query(BOOK, bool allowmultiple)
+ * 
+ *  Front end to search function.
+ *  Helps to show, restart or narrow down searches.
+ * 
+**/
 int query(std::vector<BOOK> &inventory, bool allowmultiple)
 {
 
@@ -413,17 +408,23 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
     std::vector<int> matched = std::vector<int>();
     bool loop;
 
+    // Unless all other do loops, this loop *is* intended tp repeat the query.
     do
     {
+        // Resets the internal validator
         loop = true;
+
+        // If user resets the search, then the search array/vector is reset.
         if (repeat_search == '1')
         {
             matched = std::vector<int>();
         }
 
+        // Performs said searches
         numberofmatches = searchfunc(inventory, matched);
         system("CLS");
 
+        // Tell the user if there's any result.
         if (numberofmatches == 0)
         {
             std::cout << "No results available, please try again." << std::endl;
@@ -433,19 +434,21 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
             listrecords(inventory, 0, matched);
         }
 
+        //Check if user want to repeat or narrow the search
         do
         {
             if (numberofmatches < 2)
             {
                 std::cout << "Options - 1) Do another search\n"
-                          << "        - 3) Exit\n"
+                          << "        - \n"
+                          << "        - 3) Exit/Confirm\n"
                           << "Your choice: ";
             }
             else
             {
                 std::cout << "Options - 1) Do another search\n"
                           << "        - 2) Narrow down the search\n"
-                          << "        - 3) Exit\n"
+                          << "        - 3) Exit/Confirm\n"
                           << "Your choice: ";
             }
 
@@ -456,6 +459,7 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
                 repeat_search = '4';
             }
 
+            // 1 and 3 basically go back to the main loop, 2 depends.
             switch (repeat_search)
             {
             case '1':
@@ -473,7 +477,7 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
             }
         } while (loop == true);
 
-        if (allowmultiple = false)
+        if (allowmultiple = false && repeat_search == '3' && matched.size() > 1)
         {
             std::cout << "Do proceed to narrow down the result to one entry only.";
             repeat_search = '2';
@@ -481,5 +485,6 @@ int query(std::vector<BOOK> &inventory, bool allowmultiple)
 
     } while (repeat_search != '3');
 
+    // Is there any matches? If yes, return the first match. If not, say no.
     return matched.size() ? matched[0] : -1;
 }

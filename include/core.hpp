@@ -18,7 +18,7 @@ struct BOOK
 // found in core.cpp
 void displaymenu();
 
-// found in backend.cpp, in first appearance
+// found in backend.cpp, in order of first appearance
 int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched);
 bool intchecker(std::string checked);
 int flush();
@@ -26,7 +26,7 @@ int validator(std::string &validated, int type, bool user);
 int reader(std::vector<BOOK> &inventory);
 int writer(std::vector<BOOK> &inventory);
 
-// found in frontend.cpp, in first appearance
+// found in frontend.cpp, in order of first appearance
 void promptsave(std::vector<BOOK> &inventory);
 int addrecord(std::vector<BOOK> &inventory);
 int removerecord(std::vector<BOOK> &inventory);

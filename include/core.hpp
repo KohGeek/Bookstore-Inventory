@@ -15,16 +15,18 @@ struct BOOK
     std::string genre;
 };
 
+// found in core.cpp
+void displaymenu();
+
+// found in backend.cpp, in first appearance
+int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched);
+bool intchecker(std::string checked);
+int flush();
+int validator(std::string &validated, int type, bool user);
 int reader(std::vector<BOOK> &inventory);
 int writer(std::vector<BOOK> &inventory);
 
-bool intchecker(std::string checked);
-int validator(std::string &validated, int type, bool user);
-int flush();
-
-void displaymenu();
-int searchfunc(std::vector<BOOK> &inventory, std::vector<int> &matched);
-
+// found in frontend.cpp, in first appearance
 void promptsave(std::vector<BOOK> &inventory);
 int addrecord(std::vector<BOOK> &inventory);
 int removerecord(std::vector<BOOK> &inventory);

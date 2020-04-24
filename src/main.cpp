@@ -1,3 +1,21 @@
+/** This is a joint collaboration effort by Koh Jun Dong, Tan Kai Fung and Johnny Chuan.
+ *  
+ *  The following code is licensed under the GNU GPL license. All derivatives must be open sourced.
+ * 
+ *  The code is written with a few things in mind. 
+ *  1) It is written with MSVC at its core.
+ *  2) It is written with mainly C++11 features, but the libraries are C++17 mandatory.
+ *  3) It is not written with the VS IDE, instead, a separate editor is used.
+ * 
+ *  The following source code will be open sourced on Github shortly after the completion of the assignment.
+ *  Find it at https://github.com/KohGeek/Bookstore-Inventory
+ * 
+ *  The following header-only libaries are employed:
+ *  - csv by p-ranav (https://github.com/p-ranav/csv)
+ *  - tabulate by p-ranav (https://github.com/p-ranav/tabulate)
+ * 
+**/
+
 #include <iostream>
 #include <vector>
 #include <locale>
@@ -9,9 +27,14 @@
 
 using namespace std;
 
-// marking as complete. Awaiting testing.
+/** main()
+ * 
+ *  This is where all the code starts and ends. Life is a circle.
+ * 
+**/
 int main()
 {
+    // Maximises the windows, and sets the language to UTF-8 (experimental)
     ShowWindow(GetConsoleWindow(), SW_MAXIMIZE);
     locale::global(locale("en_US.UTF-8"));
     vector<BOOK> inventory;
@@ -25,11 +48,21 @@ int main()
     {
         cin >> option;
 
+        // This will occur for every character based menu selection
+        // Without this, the program will bug if the user decides to type more than one character.
         if (flush() == 1)
         {
             option = '7';
         }
 
+        // 1 - Add record
+        // 2 - Edit record
+        // 3 - Remove record
+        // 4 - List all records
+        // 5 - Query/Search
+        // S - Save file
+        // L - Load file
+        // E - Exit
         switch (option)
         {
         case '1':
@@ -79,18 +112,25 @@ int main()
         cout << "Choose your options : " << endl;
     }
 
+    // don't worry, we will notify you to save before you leave
     promptsave(inventory);
 
     return 0;
 }
 
-//Complete
+/** displaymenu()
+ * 
+ *  Sole purpose is to display the main menu. That's it really.
+ * 
+**/
 void displaymenu()
 {
-    //header
+    // Declarations
     tabulate::Table header;
-    header.add_row({"Book Inventory System"});
+    tabulate::Table select;
 
+    // Add rows and format
+    header.add_row({"Book Inventory System"});
     header.format()
         .font_style({tabulate::FontStyle::bold})
         .border_top(" ")
@@ -101,11 +141,6 @@ void displaymenu()
         .padding_top(1)
         .padding_bottom(1)
         .font_background_color(tabulate::Color::cyan);
-
-    cout << header << endl;
-
-    //selection
-    tabulate::Table select;
 
     select.add_row({"1) Add"});
     select.add_row({"2) Edit"});
@@ -118,5 +153,6 @@ void displaymenu()
     select.add_row({""});
     select.add_row({"E) Exit"});
 
-    cout << select << endl;
+    // Display
+    cout << header << select << endl;
 }

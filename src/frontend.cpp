@@ -1,5 +1,4 @@
 #include <iostream>
-#include <conio.h>
 #include <stdlib.h>
 #include <vector>
 #include <algorithm>
@@ -145,7 +144,6 @@ int addrecord(std::vector<BOOK> &inventory)
     std::cout << "Added entries as below: \n"
               << addedentries;
 
-    getch();
     return 0;
 }
 
@@ -212,7 +210,6 @@ int removerecord(std::vector<BOOK> &inventory)
     std::cout << "Removed entries as below: \n"
               << removedentries;
 
-    getch();
     return 0;
 }
 
@@ -327,7 +324,6 @@ int editrecord(std::vector<BOOK> &inventory)
     std::cout << "Edited entries as below: \n"
               << editedentries;
 
-    getch();
     return 0;
 }
 

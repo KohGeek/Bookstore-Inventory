@@ -38,12 +38,12 @@ int main()
             break;
         case '2':
             system("CLS");
-            removerecord(inventory);
+            editrecord(inventory);
             promptsave(inventory);
             break;
         case '3':
             system("CLS");
-            editrecord(inventory);
+            removerecord(inventory);
             promptsave(inventory);
             break;
         case '4':

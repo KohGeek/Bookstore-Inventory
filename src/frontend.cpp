@@ -16,7 +16,7 @@ void promptsave(std::vector<BOOK> &inventory)
     char option;
     do
     {
-        std::cout << "Would you like to save? \n1 -  Yes\n2 - No\nPlease key in a value: ";
+        std::cout << "\nWould you like to save? \n1 -  Yes\n2 - No\nPlease key in a value: ";
         std::cin >> option;
 
         switch (option)
@@ -34,7 +34,7 @@ void promptsave(std::vector<BOOK> &inventory)
             std::cout << "Invalid option! Please try again. \n";
         }
 
-    } while (loop = true);
+    } while (loop == true);
 }
 
 int addrecord(std::vector<BOOK> &inventory)
@@ -110,6 +110,8 @@ int addrecord(std::vector<BOOK> &inventory)
             validator(input, 5, 1);
             newentry.genre = input;
 
+            std::cout << "\n";
+
             inventory.push_back(newentry);
             addedentries.add_row({newentry.isbn,
                                   newentry.author,
@@ -125,11 +127,11 @@ int addrecord(std::vector<BOOK> &inventory)
             break;
 
         case '2':
-            std::cout << "Exiting to main menu...";
+            std::cout << "\nExiting to main menu...";
             break;
 
         default:
-            std::cout << "Please key in either 1 or 2. \n";
+            std::cout << "\nPlease key in either 1 or 2. \n\n";
         }
 
     } while (option != '2');
@@ -168,7 +170,7 @@ int removerecord(std::vector<BOOK> &inventory)
 
             if (entrynumber == -1)
             {
-                std::cout << "Exiting to menu...";
+                std::cout << "Exiting to menu...\n";
                 break;
             }
 
@@ -188,11 +190,11 @@ int removerecord(std::vector<BOOK> &inventory)
             break;
 
         case '2':
-            std::cout << "Exiting to main menu...";
+            std::cout << "\nExiting to main menu...\n";
             break;
 
         default:
-            std::cout << "Please key in either 1 or 2. \n";
+            std::cout << "\nPlease key in either 1 or 2. \n\n";
         }
 
     } while (option != '2');
@@ -232,7 +234,7 @@ int editrecord(std::vector<BOOK> &inventory)
 
             if (entrynumber == -1)
             {
-                std::cout << "You've quit editing.";
+                std::cout << "Exiting to menu...\n";
                 break;
             }
 
@@ -298,14 +300,16 @@ int editrecord(std::vector<BOOK> &inventory)
                                    std::to_string(editedentry.level),
                                    editedentry.genre});
 
+            std::cout << "\n";
+
             break;
 
         case '2':
-            std::cout << "Exiting to main menu...";
+            std::cout << "\nExiting to main menu...\n";
             break;
 
         default:
-            std::cout << "Please key in either 1 or 2. \n";
+            std::cout << "\nPlease key in either 1 or 2. \n\n";
         }
 
     } while (option != '2');

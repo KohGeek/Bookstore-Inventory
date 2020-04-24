@@ -203,7 +203,7 @@ int validator(std::string &validated, int type, bool user)
     {
         if (validated.empty() == true)
         {
-            error_state == 3;
+            error_state = 3;
         }
         else
         {
@@ -228,7 +228,7 @@ int validator(std::string &validated, int type, bool user)
                 }
                 break;
             case 3:
-                for (int i = 0; i < validated.length; i++)
+                for (int i = 0; i < validated.length(); i++)
                 {
                     if (isdigit(validated[i]) == 0)
                     {
@@ -412,7 +412,7 @@ int reader(std::vector<BOOK> &inventory)
         std::cout << "The following entries, \n";
         for (auto i = skipped.cbegin(); i != skipped.cend(); i++)
         {
-            std::cout << i << std::endl;
+            std::cout << *i << std::endl;
         }
         std::cout << "have been omitted due to data error. Please verify them.";
         getch();

@@ -33,7 +33,7 @@ void promptsave(std::vector<BOOK> &inventory)
             std::cout << "Invalid option! Please try again. \n";
         }
 
-    } while (loop = true)
+    } while (loop = true);
 }
 
 int addrecord(std::vector<BOOK> &inventory)
@@ -110,7 +110,16 @@ int addrecord(std::vector<BOOK> &inventory)
             newentry.genre = input;
 
             inventory.push_back(newentry);
-            addedentries.add_row({newentry.isbn, newentry.author, newentry.title, newentry.publisher, newentry.year_published, newentry.price, newentry.quantity, newentry.rack, newentry.level, newentry.genre});
+            addedentries.add_row({newentry.isbn,
+                                  newentry.author,
+                                  newentry.title,
+                                  newentry.publisher,
+                                  std::to_string(newentry.year_published),
+                                  std::to_string(newentry.price),
+                                  std::to_string(newentry.quantity),
+                                  std::to_string(newentry.rack),
+                                  std::to_string(newentry.level),
+                                  newentry.genre});
 
             break;
 
@@ -134,6 +143,7 @@ int addrecord(std::vector<BOOK> &inventory)
 int removerecord(std::vector<BOOK> &inventory)
 {
     Table removedentries;
+    std::vector<BOOK>::iterator i = inventory.begin();
     char option;
     int entrynumber;
 
@@ -161,8 +171,18 @@ int removerecord(std::vector<BOOK> &inventory)
                 break;
             }
 
-            removedentries.add_row({inventory[entrynumber].isbn, inventory[entrynumber].author, inventory[entrynumber].title, inventory[entrynumber].publisher, inventory[entrynumber].year_published, inventory[entrynumber].price, inventory[entrynumber].quantity, inventory[entrynumber].rack, inventory[entrynumber].level, inventory[entrynumber].genre});
-            inventory.erase(entrynumber);
+            removedentries.add_row({inventory[entrynumber].isbn,
+                                    inventory[entrynumber].author,
+                                    inventory[entrynumber].title,
+                                    inventory[entrynumber].publisher,
+                                    std::to_string(inventory[entrynumber].year_published),
+                                    std::to_string(inventory[entrynumber].price),
+                                    std::to_string(inventory[entrynumber].quantity),
+                                    std::to_string(inventory[entrynumber].rack),
+                                    std::to_string(inventory[entrynumber].level),
+                                    inventory[entrynumber].genre});
+            advance(i, entrynumber);
+            inventory.erase(i);
 
             break;
 
@@ -266,7 +286,16 @@ int editrecord(std::vector<BOOK> &inventory)
             editedentry.genre = input;
 
             inventory[entrynumber] = editedentry;
-            editedentries.add_row({editedentry.isbn, editedentry.author, editedentry.title, editedentry.publisher, editedentry.year_published, editedentry.price, editedentry.quantity, editedentry.rack, editedentry.level, editedentry.genre});
+            editedentries.add_row({editedentry.isbn,
+                                   editedentry.author,
+                                   editedentry.title,
+                                   editedentry.publisher,
+                                   std::to_string(editedentry.year_published),
+                                   std::to_string(editedentry.price),
+                                   std::to_string(editedentry.quantity),
+                                   std::to_string(editedentry.rack),
+                                   std::to_string(editedentry.level),
+                                   editedentry.genre});
 
             break;
 
